@@ -1,0 +1,113 @@
+<section class="gradient-form h-full bg-neutral-200 flex justify-center items-center">
+  <div class="container h-full p-10 w-[75%]">
+    <div
+      class="flex h-full flex-wrap items-center justify-center text-neutral-800">
+      <div class="w-full">
+        <div
+          class="block rounded-lg bg-white shadow-lg">
+          <div class="g-0 lg:flex lg:flex-wrap">
+            <!-- Left column container-->
+            <div class="px-4 md:px-0 lg:w-6/12">
+              <div class="md:mx-6 md:p-12">
+                <!--Logo-->
+                <div class="text-center">
+                  <img
+                      class="mx-auto w-48 rounded-[50%]"
+                      src="./assets/logo.jpg"
+                      alt="logo"
+                      loading="lazy"
+                    />
+                  <h4 class="mb-12 mt-4 pb-1 text-xl font-semibold">
+                    Welcome Login Page Tran Xuan Thanh
+                  </h4>
+                </div>
+
+                <form class="form-login" [formGroup]="loginForm" >
+                  <p class="mb-2">Please login to your account</p>
+                  <p class="text-red-400 text-sm italic mb-2">{{ errorMessage() }}</p>
+
+                  <!--Email input-->
+                  <div class="mb-4">
+                    <label for="email">Email:</label>
+                    <input
+                      type="email"
+                      id="email"
+                      formControlName="EmailId"
+                      class="w-full rounded border-2 px-3 py-[0.32rem] outline-teal-300"
+                      placeholder="Email"
+                    />
+                    @if (loginForm.get('EmailId')?.invalid && (loginForm.get('EmailId')?.dirty || loginForm.get('EmailId')?.touched)) {
+                      <span class="text-red-400 text-sm italic">
+                        @if (loginForm.get('EmailId')?.errors?.['required']) {
+                          Email is required.
+                        }
+                        @if (loginForm.get('EmailId')?.errors?.['email']) {
+                          Invalid email format.
+                        }
+                      </span>
+                    }
+                  </div>
+
+                  <!--Password input-->
+                  <div class="mb-4">
+                    <label for="password">Password:</label>
+                    <input
+                      type="password"
+                      id="password"
+                      formControlName="Password"
+                      class="w-full rounded border-2 px-3 py-[0.32rem] outline-teal-300"
+                      placeholder="Password"
+                    />
+                    @if (loginForm.get('Password')?.invalid && (loginForm.get('Password')?.dirty || loginForm.get('Password')?.touched)) {
+                      <span class="text-red-400 text-sm italic">
+                        @if (loginForm.get('Password')?.errors?.['required']) {
+                          Password is required.
+                        }
+                        @if (loginForm.get('Password')?.errors?.['minlength']) {
+                          Password must be at least 6 characters long.
+                        }
+                      </span>
+                    }
+                  </div>
+
+                  <!--Submit button-->
+                  <div class="py-1 text-center">
+                    <button
+                      class="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase"
+                      type="submit"
+                      (click)="login()"
+                      [class.bg-gradient-to-r]="true"
+                      [class.from-[#12deab]]="true"
+                      [class.to-[#42e0d8]]="true"
+                    >
+                      Log in
+                    </button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+
+            <div
+              class="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-e-lg lg:rounded-bl-none"
+              style="background: linear-gradient(to right,  #12deab, #42e0d8)">
+              <div class="px-4 py-6 text-white md:mx-6 md:p-12">
+                <h4 class="mb-6 text-2xl font-semibold">
+                  Welcome to the System Developed by Tran Xuan Thanh
+                </h4>
+                <p class="text-md text-justify">
+                  Our platform is designed with the highest standards of security and privacy in mind. By accessing
+                  this system, you agree to comply with our terms of use and privacy policies. Unauthorized access or
+                  usage of this system is strictly prohibited and may result in legal action.
+
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

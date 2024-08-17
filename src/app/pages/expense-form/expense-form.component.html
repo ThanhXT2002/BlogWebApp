@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-lg-6">
+    <h4>
+      Expense Form
+    </h4>
+    <form action="" [formGroup]="expenseForm" (ngSubmit)="onsubmit()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control " id="title" placeholder="title" formControlName="title">
+        @if(expenseForm.get('title')?.hasError('required') && expenseForm.get('title')?.touched){
+          <span class="text-danger fst-italic form-text">Title is required.</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" placeholder="Price......" formControlName="price">
+        @if(expenseForm.get('price')?.hasError('required') && expenseForm.get('price')?.touched){
+          <span class="text-danger fst-italic form-text">price is required.</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <textarea type="text" class="form-control h-10" id="description" placeholder="Description" formControlName="description"></textarea>
+      </div>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-success">
+          Save
+        </button>
+      </div>
+
+
+    </form>
+
+  </div>
+  </div>

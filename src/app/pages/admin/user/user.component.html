@@ -1,0 +1,187 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+<div class="p-2 w-full">
+  <div class="card w-full">
+    <div class="card-header flex justify-between align-items-center items-center px-4">
+      <p class="w-[30%] font-semibold">
+        Danh sách thành viên
+      </p>
+      <div class="flex justify-end align-items-center gap-2 w-[70%]">
+        <input type="text"
+              class="form-control w-[70%]"
+              pInputText
+              [(ngModel)]="searchValue"
+              (input)="searchUsers()"
+              placeholder="Nhập từ khóa tìm kiếm...">
+        <button class="btn btn-success" (click)="openSidebar()">
+          <i class="fa fa-plus"></i><span>Thêm mới</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-body" >
+      <p-table
+      #dt1
+      [value]="users"
+      styleClass="p-datatable-gridlines "
+      [tableStyle]="{ 'min-width': '50rem' }"
+      sortMode="multiple"
+      dataKey="key"
+      [rows]="10"
+      [rowsPerPageOptions]="[10,50,100,150,200]"
+      [paginator]="true">
+      <ng-template pTemplate="caption">
+        <div class="flex justify-between items-center " >
+          <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(dt1)" styleClass="p-5 py-1 bg-green-300 shadow-sm hover:bg-green-500" />
+        </div>
+      </ng-template>
+        <ng-template pTemplate="header" >
+          <tr>
+            <th class="text-center">STT</th>
+
+            <th pSortableColumn="name" class="flex gap-x-2">Tên <p-sortIcon field="name" class="inline-block" /></th>
+
+            <th pSortableColumn="email">Email <p-sortIcon field="email" class="inline-block"  /></th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user  let-i="rowIndex">
+          <tr>
+            <td class="text-center">{{ i + 1 }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.address }}</td>
+            <td class="text-center">
+              <span [ngClass]="{'bg-teal-500': user.publish, 'bg-red-500': !user.publish}" class="p-1 text-white rounded-lg">
+                {{ user.publish ? 'Hoạt động' : 'Ngưng hoạt động' }}
+              </span>
+            </td>
+            <td class="flex justify-around px-1">
+              <a class="btn btn-danger me-1 rounded-xl"
+              (click)="openSidebar(user)"
+              ><i class="fa-solid fa-pen-to-square "></i></a>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">No user found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <p-sidebar [(visible)]="sidebarVisible"
+  [blockScroll]="true"
+  [showCloseIcon]="false"
+  position="right"
+  appendTo="body"
+  styleClass="p-0 sm:w-[90%] xl:w-[50%] transition-all duration-3000 ease-in-out">
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2">
+      <span class="font-bold text-2xl">{{sidebarTitle}}</span>
+    </div>
+  </ng-template>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSave()">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
+      <div class="mb-3">
+        <label class="font-medium">Tên người dùng: </label>
+        <input type="text" class="form-control" formControlName="name">
+        <span class="text-red-600 italic text-sm" *ngIf="userForm.get('name')?.hasError('required') && userForm.get('name')?.touched">
+          Tên người dùng không được bỏ trống!
+        </span>
+      </div>
+      <div class="mb-3">
+        <label class="font-medium">Email: </label>
+        <input type="email" class="form-control" formControlName="email">
+        <span class="text-red-600 italic text-sm" *ngIf="userForm.get('email')?.hasError('required') && userForm.get('email')?.touched">
+          Email không được bỏ trống!
+        </span>
+        <span class="text-red-600 italic text-sm" *ngIf="userForm.get('email')?.hasError('email') && userForm.get('email')?.touched">
+          Email không hợp lệ!
+        </span>
+      </div>
+      <div class="mb-3" *ngIf="!editingUserKey">
+        <label class="font-medium">Mật khẩu: </label>
+        <input type="password" class="form-control" formControlName="password">
+        <span class="text-red-600 italic text-sm" *ngIf="userForm.get('password')?.hasError('required') && userForm.get('password')?.touched">
+          Mật khẩu không được bỏ trống!
+        </span>
+      </div>
+      <div class="mb-3" *ngIf="!editingUserKey">
+        <label class="font-medium">Nhập lại mật khẩu: </label>
+        <input type="password" class="form-control" formControlName="repeat_password">
+        <span class="text-red-600 italic text-sm" *ngIf="userForm.hasError('passwordsDoNotMatch') && userForm.get('repeat_password')?.touched">
+          Mật khẩu không khớp!
+        </span>
+      </div>
+      <div class="mb-3">
+        <label class="font-medium">Số điện thoại: </label>
+        <input type="text" class="form-control" formControlName="phone">
+      </div>
+      <div class="mb-3">
+        <label class="font-medium">Địa chỉ: </label>
+        <input type="email" class="form-control" formControlName="address">
+      </div>
+
+      <div class="mb-3">
+        <label class="font-medium">Ngày sinh: </label>
+        <input type="date" class="form-control" formControlName="birthday">
+
+      </div>
+      <div class="mb-3">
+        <label class="font-medium">Ảnh đại diện: </label>
+        <input type="file" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+      </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-4">
+      <div class="mb-3">
+        <label class="font-medium">Giới tính: </label>
+        <select class="form-control" formControlName="gender">
+          <option *ngFor="let gender of genders" [ngValue]="gender.value">
+            {{ gender.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="font-medium">Loại thành viên: </label>
+        <select class="form-control" formControlName="role">
+          <option [ngValue]="true">Quản trị viên</option>
+          <option [ngValue]="false">Người dùng</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="font-medium">Trạng thái: </label>
+        <select class="form-control" formControlName="publish">
+          <option [ngValue]="true">Hoạt động</option>
+          <option [ngValue]="false">Ngưng hoạt động</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <label class="font-medium">Mô tả: </label>
+      <textarea name="" id="" class="form-control" formControlName="description" style="height: 110px !important;"></textarea>
+    </div>
+
+    <div class="flex justify-between px-3 fixed bottom-2 right-0 w-[50%] ">
+      <button class="btn btn-danger gap-2" (click)="sidebarVisible = false">
+        <i class="fa fa-trash"></i><span class="ml-2">Hủy</span>
+      </button>
+
+      <button type="submit" class="btn btn-info" >
+        <i class="fa fa-save"></i><span class="ml-2">Lưu</span>
+      </button>
+    </div>
+  </form>
+
+</p-sidebar>
+
+
+</div>

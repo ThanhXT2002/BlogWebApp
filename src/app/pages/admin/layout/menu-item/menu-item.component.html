@@ -1,0 +1,83 @@
+<div class="menuItem text-sm">
+   <!-- Gọi hàm toggleNested khi click để mở/đóng submenu
+  - [routerLink]="item().subItems ? null : item().route"
+     Gọi hàm toggleNested khi click để mở/đóng submenu
+     -(click)="toggleNested()"
+     Áp dụng class 'select-menu-item' khi route active
+     - routerLinkActive="select-menu-item"
+    Tạo tham chiếu cục bộ đến RouterLinkActive directive
+    - #rla="routerLinkActive"
+     đặt thuộc tính activated dựa trên trạng thái active của route
+     - [activated]="rla.isActive"
+     Các class CSS cho styling và hiệu ứng hover
+  -->
+
+
+  <a mat-list-item
+  [routerLink]="item().subItems ? null : item().route"
+
+  (click)="toggleNested()"
+  routerLinkActive="select-menu-item"
+  #rla="routerLinkActive"
+    [activated]="rla.isActive"
+    class="flex text-white hover:bg-slate-600 hover:text-white rounded-none menu-item"
+    (mousedown)="preventDefault($event)">
+    <!-- Icon cho mục menu -->
+    <mat-icon matListItemIcon class="menu-icon">{{item().icon}}</mat-icon>
+
+     <!-- Hiển thị label khi menu không bị thu gọn -->
+    @if(!collapsed()){
+    <span matListItemTitle class="menu-label" *ngIf="!collapsed()">{{item().label}}</span>
+    }
+
+    <!-- Hiển thị icon mở rộng/thu gọn nếu có submenu -->
+    @if(item().subItems){
+      <span matListItemMeta>
+        @if(nestedMenuOpen()){
+            <!-- Icon khi submenu đang mở -->
+          <mat-icon class="mat-18 text-[#a7b1c2]">expand_less</mat-icon>
+        }@else{
+           <!-- Icon khi submenu đang đóng -->
+        <mat-icon class="mat-18 text-[#a7b1c2]">expand_more</mat-icon>
+        }
+      </span>
+    }
+  </a>
+
+  <!-- Hiển thị submenu nếu có và đang mở -->
+  @if(item().subItems && nestedMenuOpen()){
+    <!-- Container cho submenu với animation -->
+    <div class="menu-child" @expandContractMenu>
+        <!-- Lặp qua các mục trong submenu -->
+      @for(subItem of item().subItems; track subItem.label){
+         <!-- Liên kết cho mỗi mục submenu -->
+        <a mat-list-item
+          [routerLink]="subItem.route"
+          routerLinkActive = "select-menu-item-child"
+          #rla="routerLinkActive"
+          [activated]="rla.isActive" class=" flex text-white hover:bg-slate-600  rounded-none menu-item"
+          [class.menu-item-child]="!collapsed()"
+          (mousedown)="preventDefault($event)">
+           <!-- Icon cho mục submenu -->
+          <mat-icon matListItemIcon class="menu-icon">{{subItem.icon}}</mat-icon>
+           <!-- Hiển thị label của submenu khi menu không bị thu gọn -->
+          @if(!collapsed()){
+          <span matListItemTitle class="menu-label" *ngIf="!collapsed()">{{subItem.label}}</span>
+          }
+        </a>
+      }
+    </div>
+  }
+
+</div>
+
+<!--
+* Template sử dụng các directive của Angular Material (mat-list-item, matListItemIcon, matListItemTitle, matListItemMeta) để tạo ra giao diện menu phù hợp với Material Design.
+* [routerLink] được sử dụng để xác định đích đến khi click vào mục menu. Nếu mục có submenu, routerLink được đặt là null để ngăn chặn điều hướng.
+* routerLinkActive và #rla="routerLinkActive" được sử dụng để theo dõi và áp dụng styles khi route hiện tại khớp với routerLink.
+* Template sử dụng cú pháp @if và @for mới của Angular, thay thế cho *ngIf và *ngFor cũ.
+* Submenu được hiển thị có điều kiện dựa trên sự tồn tại của subItems và trạng thái của nestedMenuOpen.
+* Animation @expandContractMenu được áp dụng cho container của submenu để tạo hiệu ứng mở/đóng mượt mà.
+* Các class CSS được sử dụng kết hợp giữa Material Design và Tailwind CSS để tạo ra giao diện và hiệu ứng mong muốn.
+Template phản ứng với trạng thái collapsed để ẩn/hiện các phần tử text, giúp tạo ra menu có thể thu gọn.
+-->

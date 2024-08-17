@@ -1,0 +1,8 @@
+<p-progressSpinner
+        *ngIf="isLoading"
+        styleClass="w-4rem h-4rem"
+        strokeWidth="8"
+        fill="var(--surface-ground)"
+        animationDuration=".5s" />
+<angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
+<!-- <input type="file" (change)="onFileSelected($event)" accept="image/*"> -->

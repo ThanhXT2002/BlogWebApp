@@ -1,0 +1,102 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+<p-progressSpinner *ngIf="isLoading" styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)"
+  animationDuration=".5s" />
+
+<form action="" [formGroup]="postCategoryForm" (ngSubmit)="onSubmit()">
+  <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[3fr,1fr] gap-x-4">
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">
+          THÔNG TIN CHUNG
+        </p>
+      </div>
+      <div class="card-body">
+        <div class="mb-5">
+          <label for="title" class="mb-2">Tiêu đề <span class="text-red-500 italic">(*)</span></label>
+          <input type="text" name="title" class="form-control" formControlName="title">
+          <span class="text-red-600 italic text-sm" *ngIf="postCategoryForm.get('title')?.hasError('required') && postCategoryForm.get('title')?.touched">
+            Tiêu đề không được bỏ trống!
+          </span>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Mô tả ngắn <span class="text-red-500 italic">(*)</span></label>
+          <angular-editor name="description" [placeholder]="'Enter text here...'" [config]="editorConfigDescription"
+            [(ngModel)]="htmlDescription" formControlName="description"></angular-editor>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Nội dung <span class="text-red-500 italic">(*)</span></label>
+          <angular-editor name="content" [placeholder]="'Enter text here...'" [config]="editorConfigContent"
+            [(ngModel)]="htmlContent" formControlName="content"></angular-editor>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">
+          CẤU HÌNH CHUNG
+        </p>
+      </div>
+      <div class="card-body">
+        <div class="mb-5">
+          <label for="title" class="mb-2">Danh mục cha</label>
+          <select2
+            [data]="select2Data"
+            [overlay]="overlay"
+            formControlName="parent_id"
+
+           >
+          </select2>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Trạng thái</label>
+          <select name="" id="" class="form-control" formControlName="publish">
+            <option [ngValue]="true">Xuất bản</option>
+            <option [ngValue]="false">Ngưng xuất bản</option>
+          </select>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-4">Ảnh đại diện<span class="text-red-500 italic">(*)</span></label>
+          <div class="outline-amber-500 h-[250px] w-full cursor-pointer" (click)="triggerFileInput()">
+            <img #previewImage class="object-cover w-full h-full"
+              [src]="imagePreview || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUnvISVTYopMAy17o3mB2lfSPeEjoKfAdV2w&s'"
+              alt="Preview">
+          </div>
+          <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+
+      </div>
+    </div>
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">
+          UPLOAD AlBUM ẢNH
+        </p>
+      </div>
+      <div class="card-body">
+        <ngx-dropzone (change)="onSelect($event)">
+          <ngx-dropzone-label>Click vào đây hoặc kéo vào để tải ảnh lên!</ngx-dropzone-label>
+
+          <!-- Hiển thị ảnh mới -->
+          <ngx-dropzone-image-preview *ngFor="let f of newFiles"
+            [removable]="true"
+            (removed)="onRemove(f)"
+            [file]="f">
+          </ngx-dropzone-image-preview>
+
+          <!-- Hiển thị ảnh có sẵn -->
+          <ngx-dropzone-image-preview *ngFor="let f of existingFiles"
+          [removable]="true"
+          (removed)="onRemoveExisting(f)"
+          [file]="f.file">
+        </ngx-dropzone-image-preview>
+        
+        </ngx-dropzone>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="fixed bottom-2 right-5">
+      <button type="submit" class="btn btn-success ">Lưu lại</button>
+  </div>
+</form>

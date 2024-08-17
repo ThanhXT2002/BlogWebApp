@@ -1,0 +1,28 @@
+<div class="py-1 md:py-2 border-b-2 border-sky-900 sticky top-0 shadow-lg z-20">
+  <div class="flex items-center justify-center gap-3">
+    <img  class="" src="favicon.ico" alt="logo">
+      <h3 class="text-3xl text-white transition-all duration-500 ease-in-out textlogo"  [ngClass]="textLogoClass()" >Angular</h3>
+        <!--
+      [ngClass]="textLogoClass()": Áp dụng class động dựa trên
+      kết quả của computed property textLogoClass.
+      Nó sẽ thêm class 'hidden' khi sidebar được thu gọn.
+    -->
+  </div>
+</div>
+
+<mat-nav-list class="menuItem">
+  @for(item of menuItem(); track item.label){
+    <app-menu-item [item]="item" [collapsed]="sideNavCollapsed()"/>
+  }
+</mat-nav-list>
+
+  <!--
+      @for: Cú pháp mới trong Angular để lặp qua các item.
+      [item]="item": Truyền từng item menu xuống MenuItemComponent.
+      [collapsed]="sideNavCollapsed()": Truyền trạng thái collapsed
+      xuống MenuItemComponent.
+    -->
+
+
+
+

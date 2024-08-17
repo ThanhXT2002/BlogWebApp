@@ -1,0 +1,19 @@
+<div class="">
+  <ejs-filemanager id='default-filemanager' [ajaxSettings]='ajaxSettings' [view]="'Details'">
+  </ejs-filemanager>
+</div>
+<style>
+div[style*="The included Syncfusion license key is invalid"] {
+    display: none !important;
+}
+</style>
+<script>
+  window.onload = function() {
+    const elements = document.querySelectorAll('div');
+    elements.forEach((element) => {
+        if (element.textContent.includes('The included Syncfusion license key is invalid')) {
+            element.style.display = 'none';
+        }
+    });
+};
+</script>

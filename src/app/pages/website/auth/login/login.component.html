@@ -1,0 +1,38 @@
+<div class="main">
+  <div class="container">
+    <h1 class="text-3xl font-semibold font-sans">Login</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-auth">
+        <input type="email" id="email" formControlName="email" placeholder="Email" />
+        <span></span>
+        @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)) {
+          <small>
+            @if (loginForm.get('email')?.errors?.['required']) {
+              Email is required.
+            }
+            @if (loginForm.get('email')?.errors?.['email']) {
+              Invalid email format.
+            }
+          </small>
+        }
+      </div>
+      <div class="form-auth">
+        <input type="password" id="password" formControlName="password" placeholder="Password" />
+        <span></span>
+        @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) {
+          <small>
+            @if (loginForm.get('password')?.errors?.['required']) {
+              Password is required.
+            }
+            @if (loginForm.get('password')?.errors?.['minlength']) {
+              Password must be at least 6 characters long.
+            }
+          </small>
+        }
+      </div>
+      <input type="submit" value="Login" [disabled]="loginForm.invalid" />
+      <div class="signup_link"><a routerLink="/login">Forgot password?</a></div>
+      <div class="signup_link"><a routerLink="/register">Have got account yet?</a></div>
+    </form>
+  </div>
+</div>

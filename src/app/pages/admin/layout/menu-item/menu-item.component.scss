@@ -1,0 +1,41 @@
+a {
+  border-radius: 0 !important;
+}
+.menu-icon{
+  margin-right: 10px !important;
+}
+
+.menu-icon,
+.menu-label {
+  color: #a7b1c2 !important;
+}
+
+.select-menu-item,
+.select-menu-item-child {
+  border-left: 4px solid rgb(13, 204, 108);
+}
+
+.menuItem a.select-menu-item,
+.menu-child a.select-menu-item-child {
+  background-color: #293846;
+  color: white;
+}
+
+.menuItem a.select-menu-item mat-icon,
+.menuItem a.select-menu-item .menu-label,
+.menu-child a.select-menu-item-child mat-icon
+.menu-child a.select-menu-item-child .menu-label{
+  color: white !important;
+}
+
+.menu-item:hover .menu-label,
+.menu-item:hover .menu-icon {
+  color: white !important;
+  font-weight: 500 !important;
+  font-size: 1.1rem !important;
+  transition: all 300ms ease-in-out;
+}
+
+.menu-item-child{
+  padding-left: 30px;
+}

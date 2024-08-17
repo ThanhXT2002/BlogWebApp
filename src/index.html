@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,8 +7,98 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <!-- swiper slider css file -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.css" integrity="sha512-m3pAvNriL711NMlhkZHK6K4Tu2/RjtrzyjxZU8mlAbxxoDoURy27KajN1LGTLeEEPvaN12mKAgSCrYEwF9y0jA==" crossorigin="anonymous" />
 </head>
-<body>
+<body class="mat-typography">
   <app-root></app-root>
+
+   <!-- masonry libray for horizontal grid -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ==" crossorigin="anonymous"></script>
+
+   <!-- swiper slider cdn -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js" integrity="sha512-1LlEYE0qExJ/GUfAJ0k2K2fB5sIvMv/q6ueo3syohvQ3ElWDQVSMUOf39cxaDWHtNu7M6lF6ZC1H6A1m3SvheA==" crossorigin="anonymous"></script>
+  <script>
+    (function() {
+        function removeErrorDiv() {
+            const div = document.querySelector('div[style*="z-index: 999999999"]');
+            if (div) {
+                div.remove();
+            }
+        }
+
+        // Đảm bảo DOM đã được tải hoàn toàn trước khi thực thi
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', removeErrorDiv);
+        } else {
+            removeErrorDiv();
+        }
+
+        // Thực hiện lại sau 1 giây để đảm bảo bắt được div nếu nó được thêm vào muộn
+        setTimeout(removeErrorDiv, 1000);
+    })();
+
+    let toggle = document.querySelector("#header .toggle-button");
+let collapse = document.querySelectorAll("#header .collapse");
+
+toggle.addEventListener('click' , function(){
+    collapse.forEach(col => col.classList.toggle("collapse-toggle"));
+})
+
+// with masonry
+new Masonry("#posts .grid", {
+    itemSelector : '.grid-item',
+    gutter : 20
+});
+
+// swiper libray initialization
+new Swiper('.swiper-container', {
+    direction : 'horizontal',
+    loop : true,
+    slidesPerView : 5,
+    autoplay : {
+        delay : 3000
+    },
+    // responsive brakpoints
+    breakpoints : {
+        '@0' : {
+            slidesPerView : 2
+        },
+        // 888px
+        '@1.00' : {
+            slidesPerView : 3
+        },
+        // 1110px
+        '@1.25' : {
+            slidesPerView : 4
+        },
+        // 1330px
+        '@1.50' : {
+            slidesPerView: 5
+        }
+    }
+})
+
+// Sticky Navigation
+window.onscroll = function(){ myFunction()};
+
+// get the current value
+let navbar = document.getElementById("header");
+
+// get the navbar position
+let sticky = navbar.offsetTop;
+
+// sticky function
+function myFunction(){
+    if(window.pageYOffset >= sticky){
+        navbar.classList.add("sticky");
+    }else{
+        navbar.classList.remove("sticky");
+    }
+}
+    </script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+.textlogo {
+  opacity: 1;
+  max-width: 200px; /* hoặc bất kỳ giá trị phù hợp nào */
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.textlogo.hidden {
+  opacity: 0;
+  max-width: 0;
+}

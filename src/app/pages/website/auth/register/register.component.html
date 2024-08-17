@@ -1,0 +1,65 @@
+<div class="main">
+  <div class="container">
+    <h1 class="text-3xl font-semibold">Register</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-auth">
+        <input type="text" id="username" formControlName="username" placeholder="Username" />
+        <span></span>
+        @if (registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)) {
+          <small>
+            @if (registerForm.get('username')?.errors?.['required']) {
+              Username is required.
+            }
+            @if (registerForm.get('username')?.errors?.['minlength']) {
+              Username must be at least 3 characters long.
+            }
+          </small>
+        }
+      </div>
+      <div class="form-auth">
+        <input type="email" id="email" formControlName="email" placeholder="Email" />
+        <span></span>
+        @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
+          <small>
+            @if (registerForm.get('email')?.errors?.['required']) {
+              Email is required.
+            }
+            @if (registerForm.get('email')?.errors?.['email']) {
+              Invalid email format.
+            }
+          </small>
+        }
+      </div>
+      <div class="form-auth">
+        <input type="password" id="password" formControlName="password" placeholder="Password" />
+        <span></span>
+        @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)) {
+          <small>
+            @if (registerForm.get('password')?.errors?.['required']) {
+              Password is required.
+            }
+            @if (registerForm.get('password')?.errors?.['minlength']) {
+              Password must be at least 6 characters long.
+            }
+          </small>
+        }
+      </div>
+      <div class="form-auth">
+        <input type="password" id="password2" formControlName="password2" placeholder="Confirm password" />
+        <span></span>
+        @if (registerForm.get('password2')?.invalid && (registerForm.get('password2')?.dirty || registerForm.get('password2')?.touched)) {
+          <small>
+            @if (registerForm.get('password2')?.errors?.['required']) {
+              Confirm password is required.
+            }
+            @if (registerForm.get('password2')?.errors?.['passwordMismatch']) {
+              Passwords do not match.
+            }
+          </small>
+        }
+      </div>
+      <input type="submit" value="Register" [disabled]="registerForm.invalid" />
+      <div class="signup_link">Already a member? <a routerLink="/login">Login</a></div>
+    </form>
+  </div>
+</div>
