@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Poppins&family=Roboto&display=swap');
-
-/* root styling */
 
 .parent{
     font-family: 'Roboto', sans-serif;
@@ -420,13 +417,13 @@ a{
         display: initial;
     }
 
-    .collapse{
+    .collapse2{
         max-height: 0;
         overflow: hidden;
         transition: all 0.8s cubic-bezier(0.51,-0.15, 0, 0.98);
     }
 
-    .collapse .nav-link{
+    .collapse2 .nav-link{
         display: block;
         text-align: center;
     }
@@ -448,3 +445,4 @@ a{
     }
 
 }
+

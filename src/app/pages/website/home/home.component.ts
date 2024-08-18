@@ -1,42 +1,66 @@
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './../../../core/services/authentication/auth.service';
-import { Component, signal } from '@angular/core';
+import { Component, signal, Pipe } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { IUser } from '../../../core/models/user.model';
+import { SliderComponent } from "../slider/slider.component";
+import { PostService } from '../../../core/services/post/post.service';
+import { IPost } from '../../../core/models/post.model';
+import { CommonModule, DatePipe } from '@angular/common';
+import { SanitizeHtmlPipe } from '../../../core/pipe/sanitize-html.pipe';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [SliderComponent,
+    RouterModule,
+    DatePipe,
+    CommonModule,
+    SanitizeHtmlPipe
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
-  // Signal để theo dõi trạng thái thu gọn của sidebar
-  collapsed = signal(false);
-
-  currentUser: IUser | null = null;
+  mainPost: IPost | null = null;
+  secondaryPosts: IPost[] = [];
+  lastPost: IPost | null = null;
 
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private authService: AuthService
+    private postService : PostService
   ) { }
 
   ngOnInit() {
-    this.currentUser = this.authService.getCurrentUser();
+    this.getAllPosts()
   }
 
-  onLogout() {
-    this.authService.logout().then(() => {
-      this.toastr.success('Đăng xuất thành công.','Thành công!');
-      this.router.navigate(['/admin/login']);
+  getAllPosts() {
+    this.postService.getAllPosts().subscribe({
+      next: (posts) => {
+        const sortedPosts = posts
+          .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+          .slice(0, 6); // Lấy 6 bài mới nhất
 
-    }).catch((error) => {
-      // Xử lý nếu có lỗi xảy ra trong quá trình đăng xuất
-      console.error('Đăng xuất thất bại', error);
-      this.toastr.error('Đăng xuất Thất bại.','Lỗi!')
+        if (sortedPosts.length > 0) {
+          this.mainPost = sortedPosts[0];
+        }
+        if (sortedPosts.length > 1) {
+          this.secondaryPosts = sortedPosts.slice(1, 5);
+        }
+        if (sortedPosts.length === 6) {
+          this.lastPost = sortedPosts[5];
+        }
+      },
+      error: (error) => {
+        console.error('Lỗi khi lấy danh sách bài viết:', error);
+      }
     });
   }
+
+
+
+
 }

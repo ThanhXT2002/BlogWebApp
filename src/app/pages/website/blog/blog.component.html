@@ -1,0 +1,64 @@
+<main id="site-main">
+  <!-- <section id="posts">
+    <div class="container">
+      <div class="grid">
+        <div *ngFor="let post of posts" class="grid-item">
+          <article class="article">
+            <div class="card">
+              <div class="overflow-img">
+                <a [routerLink]="['/post', post.slug]">
+                  <img [src]="post.image" class="img-fluid" [alt]="post.title">
+                </a>
+              </div>
+              <div class="card-body text-center px-1">
+                <a [routerLink]="['/post', post.slug]" class="text-title display-1 text-dark">
+                  {{ post.title }}
+                </a>
+                <p class="secondary-title text-secondary display-3">
+                  <span><i class="far fa-clock text-primary"></i> {{ post.created_at | date }}</span>
+                  <span><i class="far fa-comments text-primary"></i> 12</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary secondary-title text-light">Load More Posts...</button>
+      </div>
+    </div>
+  </section> -->
+
+  <div class="min-h-screen flex flex-col px-8 sm:px-16 md:px-24 justify-center bg-white">
+    <!-- Themes: blue, purple and teal -->
+    <div data-theme="teal" class="mx-auto max-w-6xl my-[20px]" *ngFor="let post of displayedPosts">
+      <h2 class="sr-only">Featured case study</h2>
+      <section class="font-sans text-black">
+        <div class="[ lg:flex lg:items-center ] [ fancy-corners fancy-corners--large fancy-corners--top-left fancy-corners--bottom-right ]">
+          <div class="flex-shrink-0 self-stretch sm:flex-basis-40 md:flex-basis-50 xl:flex-basis-60">
+            <div class="h-[350px]">
+              <article class="h-full">
+                  <img class="h-full object-cover" [src]="post.image" width="700" height="350" alt='""' />
+              </article>
+            </div>
+          </div>
+          <div class="p-6 bg-grey">
+            <div class="leading-relaxed">
+              <h2 class="leading-tight text-4xl font-bold"> {{ post.title }}</h2>
+              <p class="mt-4  line-clamp-3 text-justify" [innerHtml]="(post.description ?? '') | sanitizeHtml"> </p>
+
+              <p><a class="mt-4 button button--secondary" [routerLink]="['/post', post.slug]">Read More</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="text-center mt-[20px]" *ngIf="showLoadMore">
+      <button (click)="loadMore()" class="bg-teal-300 text-xl font-bold text-light px-10 py-3 rounded-md border-teal-300 border-2 hover:bg-white hover:text-teal-500 ">Load More Posts...</button>
+    </div>
+  </div>
+
+
+</main>

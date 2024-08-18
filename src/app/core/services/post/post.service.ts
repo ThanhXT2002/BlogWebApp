@@ -42,6 +42,15 @@ export class PostService extends BaseService{
     );
   }
 
+  // lấy một bài viết theo slug
+  getPostBySlug(slug: string): Observable<IPost | null> {
+    return this.db.list<IPost>('/posts', ref => ref.orderByChild('slug').equalTo(slug))
+      .valueChanges()
+      .pipe(
+        map(posts => posts.length > 0 ? posts[0] : null)
+      );
+  }
+
   // Hàm tạo slug duy nhất
   generateUniqueSlug(title: string, postKey?: string): Observable<string> {
     const baseSlug = this.createSlug(title);
@@ -65,7 +74,7 @@ export class PostService extends BaseService{
   create(post: Omit<IPost, 'key' | 'slug' | 'created_at' | 'updated_at'> & { imageFile?: File, albumFiles?: File[] }): Observable<IPost> {
     return this.generateUniqueSlug(post.title).pipe(
       switchMap(slug => {
-        const now = new Date();
+        const now = new Date().toISOString();
         const newpost: Omit<IPost, 'key'> = {
           ...post,
           slug,
@@ -74,6 +83,8 @@ export class PostService extends BaseService{
           image: null,
           album: null
         };
+
+
 
         const imageUpload = post.imageFile
           ? this.uploadImage(post.imageFile)
@@ -111,7 +122,7 @@ export class PostService extends BaseService{
   update(key: string, post: Partial<IPost> & { imageFile?: File, albumFiles?: File[] }): Observable<IPost> {
     return this.generateUniqueSlug(post.title || '', key).pipe(
       switchMap(slug => {
-        const now = new Date();
+        const now = new Date().toISOString();
         const { imageFile, albumFiles, ...updateData } = post;
         updateData.slug = slug;
         updateData.updated_at = now;
@@ -151,5 +162,15 @@ export class PostService extends BaseService{
    // Xóa một expense dựa trên key
    delete(key: string): Observable<void> {
     return from(this.db.object(`${this.dbPath}/${key}`).remove());
+  }
+
+  getPostsByCategoryId(categoryId: string): Observable<IPost[]> {
+    return this.db.list<IPost>('/posts', ref =>
+      ref.orderByChild('post_category_id').equalTo(categoryId)
+    ).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key!, ...c.payload.val()! }))
+      )
+    );
   }
 }

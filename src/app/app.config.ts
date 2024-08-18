@@ -16,7 +16,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideToastr } from 'ngx-toastr';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
-
+import { IMAGE_CONFIG } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,5 +37,12 @@ export const appConfig: ApplicationConfig = {
       HttpClientModule,
       AngularEditorModule
     ), provideAnimationsAsync(),
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true, // Tắt cảnh báo kích thước hình ảnh
+        disableImageLazyLoadWarning: true // Tắt cảnh báo lazy loading nếu cần
+      }
+    }
   ]
 };
