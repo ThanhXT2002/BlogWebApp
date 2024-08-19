@@ -53,7 +53,7 @@ export const routes: Routes = [
    },
   {
     path: 'admin', component:LayoutComponent,
-    // canActivate: [adminGuard],
+    canActivate: [adminGuard],
     children:[
      {
       path:'dashboard', component:DashboardComponent
