@@ -1,0 +1,51 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+<div class="p-2 w-full">
+  <div class="card w-full">
+    <div class="card-header flex justify-between align-items-center items-center px-4">
+      <p class="w-[30%] font-semibold">
+        Danh sách liên hệ
+      </p>
+      <input type="text"
+             class="form-control w-[100%]"
+             [(ngModel)]="searchValue"
+             (input)="searchContacts()"
+             placeholder="Nhập từ khóa tìm kiếm...">
+    </div>
+    <div class="card-body">
+      <p-table
+        #dt1
+        [value]="filteredContacts"
+        styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        sortMode="multiple"
+        dataKey="id"
+        [rows]="10"
+        [rowsPerPageOptions]="[10,50,100,150,200]"
+        [paginator]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center">STT</th>
+            <th pSortableColumn="name" class="flex gap-x-2">Tên<p-sortIcon field="name" class="inline-block"></p-sortIcon></th>
+            <th >Email</th>
+            <th >Nội dung liên hệ</th>
+            <th pSortableColumn="timestamp" class="text-center">Ngày gửi<p-sortIcon field="timestamp" class="inline-block"></p-sortIcon></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-contact let-i="rowIndex">
+          <tr class="border-b-2">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.message }}</td>
+            <td class="text-center">{{ formatDate(contact.timestamp) }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">Không tìm thấy liên hệ nào.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

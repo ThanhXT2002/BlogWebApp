@@ -1,0 +1,7 @@
+@import '../../../../custom';
+.circular-image {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 150px; /* Kích thước của ảnh */
+  height: 150px; /* Kích thước của ảnh */
+}

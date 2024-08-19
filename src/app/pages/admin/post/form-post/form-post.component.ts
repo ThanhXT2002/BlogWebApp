@@ -41,7 +41,7 @@ interface UploadResponse {
   styleUrl: './form-post.component.scss'
 })
 export class FormPostComponent {
-  breadcrumbTitle: string = 'Form Lưu Bài Viết';
+  breadcrumbTitle: string = 'Thêm Bài Viết';
   isLoading: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
   imageFile: File | undefined = undefined;
@@ -83,6 +83,13 @@ export class FormPostComponent {
 
     ngOnInit() {
 
+      this.route.queryParams.subscribe(params => {
+        if (params['mode'] === 'edit') {
+          this.breadcrumbTitle = 'Chỉnh Sửa Bài Viết';
+        } else {
+          this.breadcrumbTitle = 'Thêm Bài Viết';
+        }
+      });
       this.postId = this.route.snapshot.paramMap.get('id');
       this.isEditMode = !!this.postId;
       this.loadCategories();

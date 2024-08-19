@@ -4,6 +4,8 @@ import { Observable, from, forkJoin, of } from 'rxjs';
 import { map, switchMap, mergeMap, toArray, take } from 'rxjs/operators';
 import { IPost } from '../../models/post.model';
 import { BaseService } from '../base.service';
+import { CommentService } from '../comment/comment.service';
+import { IComment } from '../../models/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,10 @@ export class PostService extends BaseService{
   private dbPath = '/posts';
   postRef: AngularFireList<IPost>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private commentService: CommentService
+  ) {
     super();
     this.postRef = db.list(this.dbPath);
   }
@@ -45,9 +50,17 @@ export class PostService extends BaseService{
   // lấy một bài viết theo slug
   getPostBySlug(slug: string): Observable<IPost | null> {
     return this.db.list<IPost>('/posts', ref => ref.orderByChild('slug').equalTo(slug))
-      .valueChanges()
+      .snapshotChanges()
       .pipe(
-        map(posts => posts.length > 0 ? posts[0] : null)
+        map(changes => {
+          if (changes.length > 0) {
+            const change = changes[0];
+            const data = change.payload.val() as IPost;
+            const key = change.payload.key ?? undefined;  // Chuyển null thành undefined
+            return { ...data, key };
+          }
+          return null;
+        })
       );
   }
 
@@ -172,5 +185,32 @@ export class PostService extends BaseService{
         changes.map(c => ({ key: c.payload.key!, ...c.payload.val()! }))
       )
     );
+  }
+
+  //comment
+  getPostWithComments(postId: string): Observable<IPost & { comments: IComment[] }> {
+    return this.getPost(postId).pipe(
+      switchMap(post => {
+        if (post === null) {
+          throw new Error('Post not found');
+        }
+        return this.commentService.getCommentsByPostId(postId).pipe(
+          map(comments => ({
+            ...post,
+            post_category_id: post.post_category_id || [],
+            title: post.title || '',
+            slug: post.slug || '',
+            publish: post.publish || false,
+            created_at: post.created_at || '',
+            updated_at: post.updated_at || '',
+            comments
+          }))
+        );
+      })
+    );
+  }
+
+  updateCommentCount(postId: string, count: number): Observable<void> {
+    return from(this.db.object(`${this.dbPath}/${postId}`).update({ comment_count: count }));
   }
 }

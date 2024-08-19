@@ -1,0 +1,22 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+<div class="p-2 w-full">
+  <p-fileUpload
+  chooseLabel="Choose image upload"
+  chooseIcon="pi pi-upload"
+  name="demo2[]"
+  url="https://www.primefaces.org/cdn/api/upload.php"
+  accept="image/*"
+  [maxFileSize]="1000000"
+ [multiple]="true"
+  (onUpload)="onUploadMulti($event)">
+<ng-template let-file pTemplate="file">
+  <div>{{file.name}} {{file.size}}</div>
+</ng-template>
+
+</p-fileUpload>
+<button (click)="loadImages()" class="btn btn-info">Load Images</button>
+
+  <div class="relative max-w-5xl mx-auto mt-20" *ngFor="let url of imageUrls">
+    <img class="h-auto w-full object-cover rounded-md" [src]="url " alt="image">
+</div>
+</div>

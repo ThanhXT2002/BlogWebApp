@@ -68,7 +68,7 @@ export class PostComponent implements OnInit  {
   }
 
   editPost(key: string) {
-    this.router.navigate(['/admin/form-post/', key]);
+    this.router.navigate(['/admin/form-post', key], { queryParams: { mode: 'edit' } });
   }
 
   remove(key:string){

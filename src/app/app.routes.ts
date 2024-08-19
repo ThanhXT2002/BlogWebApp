@@ -16,6 +16,13 @@ import { LayoutWebsiteComponent } from './pages/website/layout-website/layout-we
 import { LoginComponent } from './pages/website/auth/login/login.component';
 import { PostDetailComponent } from './pages/website/post-detail/post-detail.component';
 import { BlogComponent } from './pages/website/blog/blog.component';
+import { ContactComponent } from './pages/website/contact/contact.component';
+import { CommentComponent } from './pages/admin/comment/comment.component';
+import { ProfileComponent } from './pages/website/profile/profile.component';
+import { authGuard } from './core/guards/auth.guard';
+import { ContactListComponent } from './pages/admin/contact-list/contact-list.component';
+import { ImageAboutComponent } from './pages/admin/image-about/image-about.component';
+import { AboutComponent } from './pages/website/about/about.component';
 export const routes: Routes = [
   {
     path:'',
@@ -34,16 +41,20 @@ export const routes: Routes = [
        { path: 'post/:slug', component: PostDetailComponent },
        { path: 'blog', component: BlogComponent },
        { path: 'post', component: BlogComponent },
+       { path: 'contact', component: ContactComponent },
+       { path: 'about', component: AboutComponent },
     ]
   },
   {
     path:'admin/login', component:AuthComponent
    },
   {
+    path:'profile', component:ProfileComponent, canActivate: [authGuard]
+   },
+  {
     path: 'admin', component:LayoutComponent,
-    canActivate: [adminGuard],
+    // canActivate: [adminGuard],
     children:[
-
      {
       path:'dashboard', component:DashboardComponent
      },
@@ -72,6 +83,9 @@ export const routes: Routes = [
       path:'form-post-category/:id', component: FormPostCategoryComponent
     },
     {path: 'file-manager', component:FileManagerComponent},
+    {path: 'comment', component:CommentComponent},
+    {path: 'contact-list', component:ContactListComponent},
+    {path: 'image-about', component:ImageAboutComponent},
     ]
 
   }

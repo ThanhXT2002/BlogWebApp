@@ -1,0 +1,156 @@
+<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+
+<main class="profile-page">
+  <section class="relative block h-500-px">
+    <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
+            background-image: url('https://i.pinimg.com/originals/f9/11/a7/f911a7f3c158e676b8071558785628cf.jpg');
+          ">
+      <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
+    </div>
+    <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
+      <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+        <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </section>
+  <section class="relative py-4 bg-blueGray-200">
+    <div class="container mx-auto px-4">
+      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-[-27rem]">
+        <div class="px-6">
+          <div class="flex flex-wrap justify-center">
+            <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+              <div class="relative">
+                <img alt="..." [src]="imagePreview || currentUser?.image || 'https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg'"  class="circular-image shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+              </div>
+              <!-- Add this input for file selection -->
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden">
+            </div>
+            <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
+              <div class="py-6 px-3 mt-32 sm:mt-0 flex justify-center">
+                <button
+                  class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  (click)="showDialog()">
+                  Update
+                </button>
+              </div>
+            </div>
+            <div class="w-full lg:w-4/12 px-4 lg:order-1">
+              <div class="flex justify-center py-4 lg:pt-4 pt-8">
+                <div class="mr-4 p-3 text-center cursor-pointer">
+                  <a routerLink="/home" class="text-sm text-blueGray-400">Home</a>
+                </div>
+                <div class="mr-4 p-3 text-center cursor-pointer">
+                  <a routerLink="/post" class="text-sm text-blueGray-400">post</a>
+                </div>
+                <div class="lg:mr-4 p-3 text-center cursor-pointer">
+                  <a class="text-sm text-blueGray-400">Logout</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-12">
+            <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
+              {{ currentUser?.name }}
+            </h3>
+            <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+              <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+              {{ currentUser?.address }}
+            </div>
+            <div class="mb-2 text-blueGray-600 mt-10">
+              <i class="fas fa-envelope mr-2 text-lg text-blueGray-400"></i>{{ currentUser?.email }}
+            </div>
+            <div class="mb-2 text-blueGray-600 ">
+              <i class="fas fa-phone-square mr-2 text-lg text-blueGray-400"></i>{{ currentUser?.phone }}
+            </div>
+            <div class="mb-2 text-blueGray-600 ">
+              <i class="fas fa-venus-mars mr-2 text-lg text-blueGray-400"></i>{{ currentUser?.gender }}
+            </div>
+            <div class="mb-2 text-blueGray-600 ">
+              <i class="fas fa-birthday-cake mr-2 text-lg text-blueGray-400"></i>{{ currentUser?.birthday | date:'dd MM, yyyy' }}
+            </div>
+          </div>
+          <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
+            <div class="flex flex-wrap justify-center">
+              <div class="w-full lg:w-9/12 px-4">
+                <p class="mb-4 text-lg leading-relaxed text-blueGray-700 text-justify">
+                  {{ currentUser?.description }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p-dialog
+        header="Cập nhật thông tin"
+        [(visible)]="visible"
+        [modal]="true"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        [style]="{ width: '50vw' }"
+        [draggable]="false"
+        [resizable]="false">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <div class="mb-3">
+              <label class="font-medium">Họ Và Tên: </label>
+              <input type="text" class="form-control" formControlName="name">
+              <span class="text-red-600 italic text-sm" *ngIf="profileForm.get('name')?.hasError('required') && profileForm.get('name')?.touched">
+                Tên người dùng không được bỏ trống!
+              </span>
+            </div>
+            <div class="mb-3">
+              <label class="font-medium">Email: </label>
+              <input type="email" class="form-control" formControlName="email" >
+            </div>
+            <div class="mb-3">
+              <label class="font-medium">Số điện thoại: </label>
+              <input type="text" class="form-control" formControlName="phone">
+            </div>
+            <div class="mb-3">
+              <label class="font-medium">Địa chỉ: </label>
+              <input type="email" class="form-control" formControlName="address">
+            </div>
+
+            <div class="mb-3">
+              <label class="font-medium">Ngày sinh: </label>
+              <input type="date" class="form-control" formControlName="birthday">
+
+            </div>
+            <div class="mb-3">
+              <label class="font-medium">Giới tính: </label>
+              <select class="form-control" formControlName="gender">
+                <option *ngFor="let gender of genders" [ngValue]="gender.value">
+                  {{ gender.label }}
+                </option>
+              </select>
+            </div>
+
+
+          </div>
+
+            <div class="mb-3">
+              <label class="font-medium">Ảnh đại diện: </label>
+              <input id="imageInput" type="file" (change)="onFileSelected($event)" formControlName="image" class="form-control" accept="image/*">
+
+            </div>
+          <div>
+            <label class="font-medium">Mô tả: </label>
+            <textarea name="" id="" class="form-control" formControlName="description" style="height: 150px !important;"></textarea>
+          </div>
+
+          <div class="flex justify-between mt-3">
+            <button class="btn btn-danger gap-2" (click)="visible = false">
+              <i class="fa fa-trash"></i><span class="ml-2">Hủy</span>
+            </button>
+
+            <button type="submit" class="btn btn-info" >
+              <i class="fa fa-save"></i><span class="ml-2">Lưu</span>
+            </button>
+          </div>
+        </form>
+    </p-dialog>
+</main>

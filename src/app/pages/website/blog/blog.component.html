@@ -1,35 +1,4 @@
 <main id="site-main">
-  <!-- <section id="posts">
-    <div class="container">
-      <div class="grid">
-        <div *ngFor="let post of posts" class="grid-item">
-          <article class="article">
-            <div class="card">
-              <div class="overflow-img">
-                <a [routerLink]="['/post', post.slug]">
-                  <img [src]="post.image" class="img-fluid" [alt]="post.title">
-                </a>
-              </div>
-              <div class="card-body text-center px-1">
-                <a [routerLink]="['/post', post.slug]" class="text-title display-1 text-dark">
-                  {{ post.title }}
-                </a>
-                <p class="secondary-title text-secondary display-3">
-                  <span><i class="far fa-clock text-primary"></i> {{ post.created_at | date }}</span>
-                  <span><i class="far fa-comments text-primary"></i> 12</span>
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <div class="text-center">
-        <button class="btn btn-primary secondary-title text-light">Load More Posts...</button>
-      </div>
-    </div>
-  </section> -->
-
   <div class="min-h-screen flex flex-col px-8 sm:px-16 md:px-24 justify-center bg-white">
     <!-- Themes: blue, purple and teal -->
     <div data-theme="teal" class="mx-auto max-w-6xl my-[20px]" *ngFor="let post of displayedPosts">

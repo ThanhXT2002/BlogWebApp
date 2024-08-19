@@ -13,11 +13,10 @@
        <!-- collapse on toggle button click -->
        <div class="collapse2">
            <ul class="navbar-nav">
-               <a routerLink="home" class="nav-link">Home</a>
-               <a routerLink="blog" class="nav-link">Blog</a>
-               <a href="#" class="nav-link">Categories</a>
-               <a href="#" class="nav-link">About</a>
-               <a href="#" class="nav-link">Contact</a>
+               <a routerLink="/home" class="nav-link">Home</a>
+               <a routerLink="/blog" class="nav-link">Blog</a>
+               <a routerLink="/about" class="nav-link">About</a>
+               <a routerLink="/contact" class="nav-link">Contact</a>
            </ul>
        </div>
 
@@ -29,10 +28,23 @@
                    </div>
                    <a href="#" class="nav-link"><i class="fab fa-facebook-f"></i></a>
                    <a href="#" class="nav-link"><i class="fab fa-instagram"></i></a>
-                   <a routerLink="/login" class="nav-link"><span class="bg-black text-white font-bold text-sm p-1">
-                    LOGIN
-                   </span>
-                   </a>
+                   @if (currentUser$ | async; as currentUser) {
+                    <a (click)="logout()" class="nav-link cursor-pointer">
+                      <i class="fas fa-sign-out-alt me-1"></i>
+                      <span class=" text-black font-bold text-sm p-1">
+                        Logout
+                      </span>
+                    </a>
+                    <a routerLink="/profile" class="nav-link cursor-pointer">
+                      <img  [src]="currentUser.image ? currentUser.image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEN1SWJJdiLEsPUVhGZvXACSoH7WPWWxijuw&s' " alt="" class="object-cover inline-block h-8 w-8 rounded-full">
+                    </a>
+                  } @else {
+                    <a routerLink="/login" class="nav-link">
+                      <span class="bg-black text-white font-bold text-sm p-1">
+                        LOGIN
+                      </span>
+                    </a>
+                  }
              </ul>
          </div>
   </nav>

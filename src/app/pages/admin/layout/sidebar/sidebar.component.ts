@@ -74,6 +74,21 @@ export class SidebarComponent {
       label: "QL File",
       route: '/admin/file-manager'
     },
+    {
+      icon:'comment',
+      label: "QL Bình luận",
+      route: 'comment'
+    },
+    {
+      icon:'perm_contact_calendar',
+      label: "QL Liên hệ",
+      route: 'contact-list'
+    },
+    {
+      icon:'image',
+      label: "Ảnh Trang Giới Thiệu",
+      route: 'image-about'
+    },
 
   ]);
 

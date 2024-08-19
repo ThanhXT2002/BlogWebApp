@@ -28,6 +28,7 @@
     "@kolkov/angular-editor": "^3.0.0-beta.0",
     "@syncfusion/ej2-angular-filemanager": "^24.1.45",
     "@syncfusion/ej2-material-theme": "~24.1.45",
+    "chart.js": "^4.4.3",
     "express": "^4.18.2",
     "firebase": "^10.12.5",
     "ng-select2-component": "^14.0.0",
