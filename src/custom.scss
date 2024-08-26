@@ -3,7 +3,7 @@
 	border-radius:0 !important;
 }
 .select2-container .select2-selection--single{
-	height:32px !important;
+	height:36px !important;
 	-webkit-transition: all .2s ease-out;
     transition: all .2s ease-out;
     -webkit-transition-property: color,-webkit-box-shadow;
@@ -19,7 +19,7 @@
     border-color: #c4cdd5;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered{
-	line-height:31px !important;
+	line-height:35px !important;
 	font-size:13px;
 }
 
@@ -981,4 +981,9 @@ h6, .h6 {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.2;
+}
+
+.p-highlight .p-tabview-nav-link {
+  border-bottom: 2px solid #007bff !important;
+  height: 50px; /* Kiểm tra chiều cao */
 }

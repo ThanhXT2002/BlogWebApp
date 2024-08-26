@@ -50,15 +50,31 @@ export class SidebarComponent {
     },
     {
       icon:'dns',
-      label: "QL Bài Viết",
+      label: "QL Sản Phẩm",
       subItems: [
         {
           icon:'pie_chart',
+          label: "Sản phẩm",
+          route: 'product'
+        },
+        {
+          icon:'flip_to_back',
+          label: "Loại sản phẩm",
+          route: 'product-category'
+        }
+      ]
+    },
+    {
+      icon:'filter_b_and_w',
+      label: "QL Bài Viết",
+      subItems: [
+        {
+          icon:'filter_tilt_shift',
           label: "Bài viết",
           route: 'post'
         },
         {
-          icon:'flip_to_back',
+          icon:'markunread_mailbox',
           label: "Loại bài viết",
           route: 'post-category'
         }
@@ -88,6 +104,21 @@ export class SidebarComponent {
       icon:'image',
       label: "Ảnh Trang Giới Thiệu",
       route: 'image-about'
+    },
+    {
+      icon:'compare',
+      label: "QL Banner",
+      route: 'banner'
+    },
+    {
+      icon:'menu',
+      label: "QL Menu",
+      route: 'menu'
+    },
+    {
+      icon:'settings',
+      label: "Cấu Hình Hệ Thống",
+      route: 'system'
     },
 
   ]);

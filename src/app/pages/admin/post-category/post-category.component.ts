@@ -3,12 +3,13 @@ import { BreadcrumbComponent } from "../layout/breadcrumb/breadcrumb.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { PostCategoryService } from '../../../core/services/pos-category/post-category.service';
+
 import { IPostCategory } from '../../../core/models/post-category.model';
 import { ButtonModule } from 'primeng/button';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastrService } from 'ngx-toastr';
+import { PostCategoryService } from '../../../core/services/post-category/post-category.service';
 
 @Component({
   selector: 'app-post-category',

@@ -1,4 +1,4 @@
-import { PostCategoryService } from './../../../../core/services/pos-category/post-category.service';
+
 import { Component , ElementRef, OnInit, ViewChild} from '@angular/core';
 import { BreadcrumbComponent } from "../../layout/breadcrumb/breadcrumb.component";
 import { EditorModule } from 'primeng/editor';
@@ -15,6 +15,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { IPostCategory } from '../../../../core/models/post-category.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PostCategoryService } from '../../../../core/services/post-category/post-category.service';
 
 
 

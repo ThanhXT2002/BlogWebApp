@@ -23,6 +23,13 @@ import { authGuard } from './core/guards/auth.guard';
 import { ContactListComponent } from './pages/admin/contact-list/contact-list.component';
 import { ImageAboutComponent } from './pages/admin/image-about/image-about.component';
 import { AboutComponent } from './pages/website/about/about.component';
+import { FormProductComponent } from './pages/admin/product/form-product/form-product.component';
+import { ProductComponent } from './pages/admin/product/product.component';
+
+import { MenuComponent } from './pages/admin/menu/menu.component';
+import { SystemComponent } from './pages/admin/system/system.component';
+import { BannerComponent } from './pages/admin/banner/banner.component';
+import { FormBannerComponent } from './pages/admin/banner/form-banner/form-banner.component';
 export const routes: Routes = [
   {
     path:'',
@@ -74,6 +81,18 @@ export const routes: Routes = [
       path:'form-post/:id', component: FormPostComponent
     },
     {
+      path:'product', component: ProductComponent
+    },
+    {
+      path:'form-product', component: FormProductComponent
+    },
+    {
+      path:'form-product/:id', component: FormProductComponent
+    },
+    {
+      path:'product-category', component: ProductCategoryComponent
+    },
+    {
       path:'post-category', component: PostCategoryComponent
     },
     {
@@ -86,6 +105,18 @@ export const routes: Routes = [
     {path: 'comment', component:CommentComponent},
     {path: 'contact-list', component:ContactListComponent},
     {path: 'image-about', component:ImageAboutComponent},
+    {path: 'menu', component:MenuComponent},
+    {path: 'system', component:SystemComponent},
+    {path: 'banner', component:BannerComponent},
+    {
+      path:'banner', component: BannerComponent
+    },
+    {
+      path:'form-banner', component: FormBannerComponent
+    },
+    {
+      path:'form-banner/:id', component: FormBannerComponent
+    },
     ]
 
   }

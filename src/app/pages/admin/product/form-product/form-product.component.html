@@ -1,0 +1,80 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[3fr,1fr] gap-x-4">
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">THÔNG TIN CHUNG</p>
+      </div>
+      <div class="card-body">
+        <div class="mb-5">
+          <label for="ProductName" class="mb-2">Tiêu đề <span class="text-red-500 italic">(*)</span></label>
+          <input type="text" formControlName="ProductName" class="form-control">
+          <span class="text-red-600 italic text-sm" *ngIf="productForm.get('ProductName')?.hasError('required') && productForm.get('ProductName')?.touched">
+            Tiêu đề không được bỏ trống!
+          </span>
+        </div>
+        <div class="mb-5">
+          <label for="ProductShortName" class="mb-2">Mô tả</label>
+          <quill-editor formControlName="ProductShortName" class="h-[200px]" ></quill-editor>
+        </div>
+        <div class="mb-5">
+          <label for="ProductDescription" class="mb-2">Album ảnh</label>
+          <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Click vào đây hoặc kéo vào để tải ảnh lên!</ngx-dropzone-label>
+            <ngx-dropzone-image-preview *ngFor="let f of Files"
+              [removable]="true"
+              (removed)="onRemove(f)"
+              [file]="f">
+          </ngx-dropzone-image-preview>
+
+          </ngx-dropzone>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">CẤU HÌNH CHUNG</p>
+      </div>
+      <div class="card-body">
+        <div class="mb-5">
+          <label for="CategoryId" class="mb-2">Loại sản phẩm</label>
+          <select2
+          [data]="categoryList"
+          formControlName="CategoryId"
+          placeholder="Chọn loại sản phẩm"
+          [overlay]="overlay"
+
+         >
+        </select2>
+        </div>
+        <div class="mb-5">
+          <label for="ProductSku" class="mb-2">SKU</label>
+          <input type="text" formControlName="ProductSku"  class="form-control">
+        </div>
+        <div class="mb-5">
+          <label for="ProductPrice" class="mb-2">Giá</label>
+          <input type="number" formControlName="ProductPrice" class="form-control">
+        </div>
+        <div class="mb-5">
+          <label for="DeliveryTimeSpan" class="mb-2">Thời gian giao hàng</label>
+          <input type="text" formControlName="DeliveryTimeSpan" class="form-control">
+        </div>
+        <div class="mb-5">
+          <label for="ProductImageUrl" class="mb-4">Ảnh đại diện<span class="text-red-500 italic">(*)</span></label>
+          <div class="outline-amber-500  w-full cursor-pointer" (click)="triggerFileInput()">
+            <img #previewImage class="object-cover w-full h-full"
+              [src]="imagePreview || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUnvISVTYopMAy17o3mB2lfSPeEjoKfAdV2w&s'"
+              alt="Preview">
+          </div>
+          <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-2 right-5">
+    <button type="submit" class="btn btn-success">Lưu lại</button>
+  </div>
+  <!-- <pre>{{ productForm.value | json }}</pre> -->
+</form>

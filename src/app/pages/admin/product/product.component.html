@@ -1,0 +1,75 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+<p-confirmDialog />
+<div class="p-2 w-full">
+  <div class="card w-full">
+    <div class="card-header flex justify-between align-items-center items-center px-4">
+      <p class="w-[30%] font-semibold">
+        Danh sách sản phẩm
+      </p>
+      <div class="flex justify-end align-items-center gap-2 w-[70%]">
+        <input type="text"
+            class="form-control w-[70%]"
+            [(ngModel)]="searchValue"
+            (input)="searchProducts()"
+        placeholder="Nhập từ khóa tìm kiếm...">
+        <button class="btn btn-success" routerLink="/admin/form-product">
+          <i class="fa fa-plus"></i><span>Thêm mới</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-body" >
+      <p-table
+      #dt1
+      [value]="filteredProductsList"
+      styleClass="p-datatable-gridlines"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      sortMode="multiple"
+      dataKey="key"
+      [rows]="10"
+      [rowsPerPageOptions]="[10,50,100,150,200]"
+      [paginator]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center">STT</th>
+          <th class="text-center">Ảnh</th>
+          <th pSortableColumn="productName">Tên<p-sortIcon field="productName" class="inline-block"></p-sortIcon></th>
+          <th pSortableColumn="productSku" class="text-center">SKU<p-sortIcon field="productSku" class="inline-block"></p-sortIcon></th>
+          <th pSortableColumn="productPrice" class="text-center">Giá<p-sortIcon field="productPrice" class="inline-block"></p-sortIcon></th>
+          <th class="text-center">Thao tác</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product let-i="rowIndex">
+        <tr class="border-b-2">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td class="text-center"><img [src]="product.productImageUrl" alt="{{ product.productName }}" class="relative inline-block h-9 w-9 !rounded-full object-cover object-center"></td>
+          <td>{{ product.productName }}</td>
+          <td class="text-center">
+            {{ product.productSku }}
+          </td>
+          <td class="text-center">
+            {{ product.productPrice | vndCurrency }}
+          </td>
+          <td class="">
+            <div class="flex justify-around items-center justify-items-center px-1">
+              <a class="btn btn-primary me-1 rounded-xl" (click)="edit(product)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <a class="btn btn-danger me-1 rounded-xl" (click)="remove(product, $event)">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6">Không tìm thấy danh mục nào.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    </div>
+  </div>
+
+
+
+</div>

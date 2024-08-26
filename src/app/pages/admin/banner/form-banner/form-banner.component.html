@@ -1,0 +1,184 @@
+<app-breadcrumb [title]="breadcrumbTitle"/>
+<form action="" [formGroup]="bannerForm" (ngSubmit)="onSubmit()">
+  <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[3fr,1fr] gap-x-4">
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">
+          Album
+        </p>
+        <button type="button" class="btn bg-cyan-500 btn-sm" (click)="fileInput.click()">Thêm ảnh</button>
+        <input type="file" #fileInput (change)="onFilesSelected($event)" multiple style="display: none;">
+      </div>
+      <div class="card-body">
+        <div formArrayName="album">
+          <div cdkDropList  (cdkDropListDropped)="drop($event)"
+          [cdkDropListAutoScrollDisabled]="false"
+          [cdkDropListAutoScrollStep]="50"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr,3fr] gap-x-4 mb-3 cursor-move"
+            *ngFor="let image of albumFormArray.controls; let i = index" cdkDrag [formGroupName]="i" >
+              <div class="border-2 border-gray-300 flex items-center relative" cdkDragHandle>
+                <img [src]="image.get('image')?.value || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9bdrTEcWGZYPZVXl-vFIMAH9zLBI05PGZ3Q&s'"
+                class="h-[150px] w-full object-cover" alt="">
+                <input type="hidden" formControlName="img">
+                <button type="button" class="absolute top-2 right-2 btn btn-danger btn-sm" (click)="removeImage(i)"><i class="fa-solid fa-trash"></i></button>
+              </div>
+              <div class="border-2 border-gray-300">
+                <p-tabView>
+                  <p-tabPanel header="Thông tin chung">
+                    <div class="mb-4">
+                      <label for="title" class="mb-2 font-semibold">Mô tả</label>
+                      <textarea type="text" class="form-control" formControlName="imgDescription" ></textarea>
+                    </div>
+                    <div class="mb-4">
+                      <label for=""  class="mb-2 font-semibold">Url</label>
+                      <input type="text" class="form-control" formControlName="url">
+                    </div>
+                    <div class="flex justify-around place-items-center gap-x-4">
+                      <label for="">Mở trong tab mới</label>
+                      <p-inputSwitch formControlName="newTab"/>
+                    </div>
+                  </p-tabPanel>
+                  <p-tabPanel header="SEO">
+                    <div class="mb-4">
+                      <label for="title" class="mb-2 font-semibold">Tiêu đề ảnh</label>
+                      <input type="text" class="form-control" formControlName="name"  />
+                    </div>
+                    <div class="">
+                      <label for="title" class="mb-2 font-semibold">Mô tả ảnh</label>
+                      <input type="text" class="form-control" formControlName="alt" />
+                    </div>
+                  </p-tabPanel>
+              </p-tabView>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <div>
+      <div class="mb-3 card">
+        <div class="card-header flex justify-between align-items-center items-center px-4">
+          <p class="font-semibold uppercase">
+            CÀI ĐẶT CƠ BẢN
+          </p>
+        </div>
+        <div class="card-body">
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Tiêu đề <span class="text-red-500 italic">(*)</span></label>
+            <input type="text" name="title" class="form-control" formControlName="title">
+            <span class="text-red-600 italic text-sm" *ngIf="bannerForm.get('title')?.hasError('required') && bannerForm.get('title')?.touched">
+              Tiêu đề không được bỏ trống!
+            </span>
+          </div>
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Từ khóa <span class="text-red-500 italic">(*)</span></label>
+            <input type="text" class="form-control" formControlName="keyWord">
+            <span class="text-red-600 italic text-sm" *ngIf="bannerForm.get('keyWord')?.hasError('required') && bannerForm.get('keyWord')?.touched">
+              Từ khóa không được bỏ trống!
+            </span>
+
+          </div>
+
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Chiều rộng</label>
+            <div class="relative">
+              <input type="number" class="form-control w-full pr-10 border-2 border-gray-300 p-4 text-lg" formControlName="width">
+              <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">px</span>
+          </div>
+          </div>
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Chiều dài</label>
+            <div class="relative">
+              <input type="number" class="form-control w-full pr-10 border-2 border-gray-300 p-4 text-lg" formControlName="height">
+              <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">px</span>
+          </div>
+          </div>
+
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Hiệu ứng</label>
+            <select2
+              [data]="dataSelect2"
+              formControlName="effect"
+              >
+            </select2>
+
+          </div>
+          <div class="mb-5 flex justify-between font-semibold ">
+            <label for="title" class="mb-2">Mũi tên</label>
+            <p-inputSwitch formControlName="arrow"></p-inputSwitch>
+          </div>
+          <div class="mb-5 flex justify-between font-semibold items-center justify-items-center">
+            <label for="title" class="mb-4">Điều hướng</label>
+            <div class="flex flex-col gap-y-3">
+              <div class="flex">
+                <input type="radio" formControlName="navigation" value="hidden" id="nav-hidden"  class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
+                <label for="nav-hidden" class="text-sm text-gray-500 ms-2 dark:text-neutral-400">Ẩn</label>
+              </div>
+
+              <div class="flex">
+                <input type="radio" formControlName="navigation" value="dots" id="nav-dots" class="shrink-0 mt-0.5  border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
+                <label for="nav-dots" class="text-sm text-gray-500 ms-2 dark:text-neutral-400">Dấu chấm</label>
+              </div>
+
+              <div class="flex">
+                <input type="radio" formControlName="navigation" value="thumbnails" id="nav-thumbnails" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
+                <label for="nav-thumbnails" class="text-sm text-gray-500 ms-2 dark:text-neutral-400">ảnh thumbnails</label>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="mb-3 card">
+        <div class="card-header flex justify-between align-items-center items-center px-4">
+          <p class="font-semibold uppercase">
+            Cài đặt nâng cao
+          </p>
+        </div>
+        <div class="card-body">
+          <div class="mb-5 flex justify-between font-semibold ">
+            <label for="title" class="mb-2">Tự động chạy</label>
+            <p-inputSwitch  formControlName="autoplay"/>
+          </div>
+          <div class="mb-5 flex justify-between font-semibold ">
+            <label for="title" class="mb-2">Dừng khi di chuột</label>
+            <p-inputSwitch formControlName="accept"/>
+          </div>
+
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Tốc độ chuyển ảnh</label>
+            <div class="relative">
+              <input type="text" class="form-control w-full pr-10 border-2 border-gray-300 p-4 text-lg" formControlName="animationDelay">
+              <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">ms</span>
+          </div>
+          </div>
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Tốc độ hiệu ứng</label>
+            <div class="relative">
+              <input type="text" class="form-control w-full pr-10 border-2 border-gray-300 p-4 text-lg " formControlName="animationSpeed">
+              <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">ms</span>
+          </div>
+          </div>
+          <div class="mb-5">
+            <label for="title" class="mb-2 font-semibold">Short Code</label>
+            <textarea class="form-control" formControlName="shortCode"></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="fixed bottom-2 right-5">
+      <button type="submit" class="btn btn-success ">Lưu lại</button>
+  </div>
+</form>

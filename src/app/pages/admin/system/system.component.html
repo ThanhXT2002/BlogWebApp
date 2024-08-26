@@ -1,0 +1,160 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+
+<div class="p-2 w-full card">
+  <form [formGroup]="systemForm" (ngSubmit)="onSubmit()">
+    <p-tabView class="prime-tabview">
+      <p-tabPanel header="Thông tin chung">
+          <p class="mb-3">
+            Cài đặt đầy đủ thông tin chung của website, Tên thương hiệu website, Logo, Favicon, vv
+          </p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
+           <div class="mb-5">
+              <label class="font-semibold">Tên công ty </label>
+              <input type="text" class="form-control" formControlName="companyName">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Tên thương hiệu </label>
+              <input type="text" class="form-control" formControlName="TrademarkName">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Slogan </label>
+              <input type="text" class="form-control" formControlName="slogan">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Logo website</label>
+              <app-input-upload
+                  [imageUrl]="systemForm.get('logo')?.value"
+                  (imageUrlChange)="onImageUrlChange('logo', $event)"
+                ></app-input-upload>
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Favicon</label>
+              <app-input-upload
+              [imageUrl]="systemForm.get('favicon')?.value"
+              (imageUrlChange)="onImageUrlChange('favicon', $event)"
+            ></app-input-upload>
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Images</label>
+              <app-input-upload
+                [imageUrl]="systemForm.get('iamge')?.value"
+                (imageUrlChange)="onImageUrlChange('iamge', $event)"
+              ></app-input-upload>
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Copyright</label>
+              <input type="text" class="form-control" formControlName="copyright">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Tình trạng website</label>
+              <select  class="form-control" formControlName="status">
+                <option value="open">Hoạt động</option>
+                <option value="close">Đang bảo trì</option>
+              </select>
+            </div>
+          </div>
+      </p-tabPanel>
+      <p-tabPanel header="Thông tin liên hệ">
+        <p class="mb-3">
+            Cài đặt thông tin liên hệ của website ví dụ: Địa chỉ công ty, Văn phòng giao dịch, Hotline, Bản đò, vv....
+          </p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
+           <div class="mb-5">
+              <label class="font-semibold">Địa chỉ công ty </label>
+              <input type="text" class="form-control" formControlName="CompanyAddress">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Văn phòng giao dịch</label>
+              <input type="text" class="form-control" formControlName="transactionOffice">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Hotline</label>
+              <input type="text" class="form-control" formControlName="hotline">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Hotline kỹ thuật</label>
+              <input type="text" class="form-control" formControlName="techniqueHotline">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Hotline kinh doanh</label>
+              <input type="text" class="form-control" formControlName="businessHotline">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Fax</label>
+              <input type="text" class="form-control" formControlName="fax">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Email</label>
+              <input type="text" class="form-control" formControlName="email">
+              @if (systemForm.get('email')?.invalid && (systemForm.get('email')?.dirty || systemForm.get('email')?.touched)) {
+                <span class="text-red-400 text-sm italic">
+                  @if (systemForm.get('email')?.errors?.['required']) {
+                    Email không được bỏ trống
+                  }
+                  @if (systemForm.get('email')?.errors?.['email']) {
+                    Vui lòng nhập đúng định dạng Email.
+                  }
+                </span>
+              }
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Mã Số thuế</label>
+              <input type="text" class="form-control" formControlName="taxCode">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Mã DUNS</label>
+              <input type="text" class="form-control" formControlName="dunsCode">
+            </div>
+           <div class="mb-5">
+              <label class="font-semibold">Website</label>
+              <input type="text" class="form-control" formControlName="website">
+            </div>
+          </div>
+         <div class="mb-5">
+            <label class="font-semibold">Bản đồ</label>
+            <textarea class="form-control !h-[200px]" formControlName="map"></textarea>
+          </div>
+         <div class="mb-5">
+            <label class="font-semibold">Giới thiệu ngắn</label>
+            <quill-editor formControlName="shotDescription" class="h-[500px] !w-full" ></quill-editor>
+          </div>
+      </p-tabPanel>
+      <p-tabPanel header="Thông tin SEO">
+        <p class="mb-3">
+            Cài đặt đầy đủ thông tin về SEO của trang chủ website, Bao gồm tiêu đề SEO, Từ khóa SEO, Mô tả SEO, Meta images
+          </p>
+          <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[1fr,1fr] gap-x-4">
+           <div class="mb-5">
+             <div class="mb-5">
+                <label class="font-semibold">Tiêu đề SEO</label>
+                <input type="text" class="form-control" formControlName="titleSeo">
+              </div>
+             <div class="mb-5">
+                <label class="font-semibold">Từ khóa SEO</label>
+                <input type="text" class="form-control" formControlName="keySeo">
+              </div>
+             <div class="mb-5">
+                <label class="font-semibold">Iamge Seo</label>
+                <app-input-upload
+                    [imageUrl]="systemForm.get('imageSeo')?.value"
+                    (imageUrlChange)="onImageUrlChange('imageSeo', $event)"
+                  ></app-input-upload>
+              </div>
+            </div>
+           <div class="mb-5">
+             <div class="mb-5">
+                <label class="font-semibold">Mô tả SEO</label>
+                <textarea class="form-control !h-[200px]" formControlName="descriptionSeo"  ></textarea>
+              </div>
+            </div>
+          </div>
+      </p-tabPanel>
+  </p-tabView>
+  <div class="card-header text-right fixed bottom-2 right-0">
+    <button type="submit" class="btn btn-success ">Lưu</button>
+  </div>
+  </form>
+
+
+
+</div>

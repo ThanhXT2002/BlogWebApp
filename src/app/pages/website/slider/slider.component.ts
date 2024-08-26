@@ -1,6 +1,7 @@
 import { Component  } from '@angular/core';
-import { PostCategoryService } from '../../../core/services/pos-category/post-category.service';
+
 import { IPostCategory } from '../../../core/models/post-category.model';
+import { PostCategoryService } from '../../../core/services/post-category/post-category.service';
 
 @Component({
   selector: 'app-slider',

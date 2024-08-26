@@ -110,7 +110,6 @@ export class PostDetailComponent implements OnInit{
       }).subscribe({
         next: () => {
           this.newComment = '';
-          this.toastr.success('Bình luận đã được thêm thành công', 'Thành công');
           // Cập nhật số lượng comment và tải lại comments nếu cần
           if (this.post && this.post.key) {
             this.loadComments(this.post.key);

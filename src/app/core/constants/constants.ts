@@ -22,4 +22,23 @@ export const firebaseConfig = {
 };
 
 
+export const Constant = {
+  API_END_POINT: '/api/amazon/', // Sử dụng proxy URL
+  METHODS: {
+    //product
+    GET_ALL_PRODUCT: 'GetAllProducts',
+    CREATE_PRODUCT: 'CreateProduct',
+    UPDATE_PRODUCT: 'UpdateProduct',
+    GET_PRODUCT_BY_ID: 'GetProductById?id=',
+    DELETE_PRODUCT: 'DeleteProductById?id=',
+    GET_ALL_PRODUCT_BY_CATEGORY_ID: 'GetAllProductsByCategoryId?id=',
+    //product category
+    GET_ALL_CATEGORY: 'GetAllCategory',
+    CREATE_NEW_CATEGORY: 'CreateNewCategory',
+    DELETE_CATEGORY: 'DeleteCategoryById?id=',
 
+    //
+
+
+  }
+}

@@ -15,8 +15,11 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { IPostCategory } from '../../../../core/models/post-category.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PostCategoryService } from '../../../../core/services/pos-category/post-category.service';
+
 import { IPost } from '../../../../core/models/post.model';
+import { PostCategoryService } from '../../../../core/services/post-category/post-category.service';
+
+
 
 
 interface UploadResponse {

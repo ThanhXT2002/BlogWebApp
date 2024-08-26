@@ -75,7 +75,6 @@ export class PostComponent implements OnInit  {
     if(window.confirm("Bạn có thực sự muốn xóa bản ghi này không?")){
       this.postService.delete(key).subscribe({
         next: () => {
-          console.log('Xóa thành công');
           this.toastr.success("Xóa thành công!")
         },
         error: (err) => {
