@@ -1,2 +1,97 @@
-<p>menu works!</p>
-<p class="payment"></p>
+<app-breadcrumb title="Quản Lý Menu"></app-breadcrumb>
+<div class="p-2 w-full">
+  <div class="card w-full">
+    <div class="card-header flex justify-between align-items-center items-center px-4">
+      <p class="w-[30%] font-semibold">
+        Danh sách Menu
+      </p>
+        <button class="btn btn-success" (click)="addNewMenu()">
+          <i class="fa fa-plus"></i><span>Thêm mới</span>
+        </button>
+    </div>
+    <div class="card-body">
+      <p-table #dt1 [value]="menus" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }"
+        sortMode="multiple" dataKey="key" [rows]="5" [rowsPerPageOptions]="[5,10,50,100,150,200]" [paginator]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center">STT</th>
+            <th pSortableColumn="name">Tên <p-sortIcon field="name" class="inline-block"></p-sortIcon></th>
+            <th pSortableColumn="type">Vị trí <p-sortIcon field="type" class="inline-block"></p-sortIcon></th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Thao tác</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-menu let-i="rowIndex">
+          <tr class="border-b-2">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td>{{ menu.name }}</td>
+            <td>{{ menu.type }}</td>
+            <td class="text-center">
+              <p-inputSwitch [(ngModel)]="menu.publish" (onChange)="updateMenuPublish(menu)"></p-inputSwitch>
+            </td>
+            <td class="">
+              <div class="flex justify-around items-center justify-items-center px-1">
+                <a class="btn btn-info me-1 !rounded-md" (click)="editMenuItem(menu)">
+                    <i class="fa-solid fa-list"></i>
+                  </a>
+                <a class="btn bg-purple-500 me-1 rounded-xl" (click)="editMenu(menu.key!)">
+                    <i class="fa-solid fa-pencil"></i>
+                  </a>
+                  <a class="btn btn-danger me-1 rounded-xl" (click)="deleteMenu(menu.key!)">
+                    <i class="fa-solid fa-trash"></i>
+                  </a>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">Không tìm thấy danh mục nào.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <p-sidebar [(visible)]="sidebarVisible" [blockScroll]="true" [showCloseIcon]="false" position="right" appendTo="body"
+  styleClass="p-0 sm:w-[90%] xl:w-[25%] transition-all duration-3000 ease-in-out">
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2">
+        <span class="font-bold text-2xl">{{ editingMenuKey ? 'Chỉnh sửa Menu' : 'Thêm Menu' }}</span>
+    </div>
+  </ng-template>
+  <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+    <div class="mb-5">
+      <label class="font-medium">Tên menu: </label>
+      <input type="text" class="form-control" formControlName="name">
+      <span class="text-red-600 italic text-sm"
+        *ngIf="menuForm.get('name')?.hasError('required') && menuForm.get('name')?.touched">
+        Tên menu không được để trống!
+      </span>
+    </div>
+    <div class="mb-5">
+      <label class="font-medium">Chọn loại menu: </label>
+     <select formControlName="type" class="form-control">
+        <option value="header">Header</option>
+        <option value="footer">Footer</option>
+        <option value="sidebar">Sidebar</option>
+     </select>
+    </div>
+
+    <div class="mb-5 flex justify-around justify-items-center">
+        <label class="font-medium">Trạng thái: </label>
+        <p-inputSwitch formControlName="publish"></p-inputSwitch>
+      </div>
+    <div class="flex justify-between px-3 fixed bottom-2 right-0 w-[25%] ">
+      <button type="button" class="btn btn-danger gap-2" (click)="resetForm()">
+        <i class="fa fa-trash"></i><span class="ml-2">Hủy</span>
+      </button>
+
+      <button type="submit" class="btn btn-info">
+        <i class="fa fa-save"></i><span class="ml-2">Lưu</span>
+      </button>
+    </div>
+  </form>
+
+</p-sidebar>
+</div>

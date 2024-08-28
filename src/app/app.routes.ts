@@ -30,95 +30,126 @@ import { MenuComponent } from './pages/admin/menu/menu.component';
 import { SystemComponent } from './pages/admin/system/system.component';
 import { BannerComponent } from './pages/admin/banner/banner.component';
 import { FormBannerComponent } from './pages/admin/banner/form-banner/form-banner.component';
+import { FormMenuComponent } from './pages/admin/menu/form-menu/form-menu.component';
+import { MenuItemComponent } from './pages/admin/menu/menu-item/menu-item.component';
+
 export const routes: Routes = [
   {
-    path:'',
-    redirectTo:'home',
-    pathMatch:'full'
-  },
-  {path: '', component:LayoutWebsiteComponent,
-    children:[
-      {path: 'home', component:HomeComponent},
-      {
-        path:'register', component:RegisterComponent
-       },
-      {
-        path:'login', component:LoginComponent
-       },
-       { path: 'post/:slug', component: PostDetailComponent },
-       { path: 'blog', component: BlogComponent },
-       { path: 'post', component: BlogComponent },
-       { path: 'contact', component: ContactComponent },
-       { path: 'about', component: AboutComponent },
-    ]
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
-    path:'admin/login', component:AuthComponent
-   },
+    path: '',
+    component: LayoutWebsiteComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      { path: 'post/:slug', component: PostDetailComponent },
+      { path: 'blog', component: BlogComponent },
+      { path: 'post', component: BlogComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'about', component: AboutComponent },
+    ],
+  },
   {
-    path:'profile', component:ProfileComponent, canActivate: [authGuard]
-   },
+    path: 'admin/login',
+    component: AuthComponent,
+  },
   {
-    path: 'admin', component:LayoutComponent,
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    component: LayoutComponent,
     canActivate: [adminGuard],
-    children:[
-     {
-      path:'dashboard', component:DashboardComponent
-     },
-    {
-      path:'product_category', component: ProductCategoryComponent
-    },
-    {
-      path:'user', component: UserComponent
-    },
-    {
-      path:'post', component: PostComponent
-    },
-    {
-      path:'form-post', component: FormPostComponent
-    },
-    {
-      path:'form-post/:id', component: FormPostComponent
-    },
-    {
-      path:'product', component: ProductComponent
-    },
-    {
-      path:'form-product', component: FormProductComponent
-    },
-    {
-      path:'form-product/:id', component: FormProductComponent
-    },
-    {
-      path:'product-category', component: ProductCategoryComponent
-    },
-    {
-      path:'post-category', component: PostCategoryComponent
-    },
-    {
-      path:'form-post-category', component: FormPostCategoryComponent
-    },
-    {
-      path:'form-post-category/:id', component: FormPostCategoryComponent
-    },
-    {path: 'file-manager', component:FileManagerComponent},
-    {path: 'comment', component:CommentComponent},
-    {path: 'contact-list', component:ContactListComponent},
-    {path: 'image-about', component:ImageAboutComponent},
-    {path: 'menu', component:MenuComponent},
-    {path: 'system', component:SystemComponent},
-    {path: 'banner', component:BannerComponent},
-    {
-      path:'banner', component: BannerComponent
-    },
-    {
-      path:'form-banner', component: FormBannerComponent
-    },
-    {
-      path:'form-banner/:id', component: FormBannerComponent
-    },
-    ]
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
+        path: 'product_category',
+        component: ProductCategoryComponent,
+      },
+      {
+        path: 'user',
+        component: UserComponent,
+      },
+      {
+        path: 'post',
+        component: PostComponent,
+      },
+      {
+        path: 'form-post',
+        component: FormPostComponent,
+      },
+      {
+        path: 'form-post/:id',
+        component: FormPostComponent,
+      },
+      {
+        path: 'product',
+        component: ProductComponent,
+      },
+      {
+        path: 'form-product',
+        component: FormProductComponent,
+      },
+      {
+        path: 'form-product/:id',
+        component: FormProductComponent,
+      },
+      {
+        path: 'product-category',
+        component: ProductCategoryComponent,
+      },
+      {
+        path: 'post-category',
+        component: PostCategoryComponent,
+      },
+      {
+        path: 'form-post-category',
+        component: FormPostCategoryComponent,
+      },
+      {
+        path: 'form-post-category/:id',
+        component: FormPostCategoryComponent,
+      },
+      { path: 'file-manager',
+        component: FileManagerComponent
+      },
+      { path: 'comment', component: CommentComponent },
+      { path: 'contact-list', component: ContactListComponent },
+      { path: 'image-about', component: ImageAboutComponent },
+      { path: 'menu', component: MenuComponent },
+      { path: 'form-menu', component: FormMenuComponent },
+      { path: 'form-menu/:menuKey', component: FormMenuComponent },
 
-  }
-
+      { path: 'menu-items/:menuKey', component: MenuItemComponent },
+      { path: 'system', component: SystemComponent },
+      { path: 'banner', component: BannerComponent },
+      {
+        path: 'banner',
+        component: BannerComponent,
+      },
+      {
+        path: 'form-banner',
+        component: FormBannerComponent,
+      },
+      {
+        path: 'form-banner/:id',
+        component: FormBannerComponent,
+      },
+    ],
+  },
 ];

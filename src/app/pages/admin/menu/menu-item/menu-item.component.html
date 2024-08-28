@@ -1,0 +1,41 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+
+<div class="p-2 w-full">
+
+    <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[2fr,4fr] gap-x-4">
+      <div class="p-2">
+        <h5 class="mb-2">
+          Danh sách ITEM MENU
+        </h5>
+        <ul class="ml-4 list-disc text-justify space-y-3">
+          <li>Danh sách Menu giúp bạn dễ dàng kiểm soát bố cục menu. Bạn có thể thêm mới hoặc cập nhật Menu bằng nút  <span class="text-teal-500">Cập nhật Mneu.</span></li>
+          <li>Bạn có thể thay đổi vị trí hiển thị của Menu bằng cách <span class="text-teal-500">Kéo menu đến vị trí mong muốn. </span></li>
+          <li>Dễ dàng khởi tạo Menu bằng cách ấn vào nút <span class="text-teal-500">Quản lý menu con</span></li>
+          <li>Hỗ trợ tới danh mục cấp 5</li>
+        </ul>
+
+      </div>
+      <div class="mb-3 card !rounded-none shadow-2xl">
+        <div class="card-header flex justify-between align-items-center items-center px-4">
+          <p class="font-semibold capitalize">{{titleCard}}</p>
+          <button class="btn btn-sm bg-cyan-400 !ring-0"
+                [routerLink]="menuKey ? ['/admin/form-menu', menuKey] : null"
+                [queryParams]="{ menuName: titleCard }"
+                [disabled]="!menuKey">
+          Cập nhật Item Menu cấp 1
+        </button>
+        </div>
+        <div class="card-body">
+            <div class="border border-1 border-emerald-500 py-1 px-3 w-full mx-2 my-1">
+              Danh mục cha
+            </div>
+            <div class="border border-1 border-emerald-500 py-1 px-3 w-full mx-2 my-1">
+              Danh mục con
+            </div>
+            <div class="border border-1 border-emerald-500 py-1 px-3 w-full mx-2 my-1">
+              Danh mục cháu
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

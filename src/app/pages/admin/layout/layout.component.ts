@@ -53,7 +53,7 @@ export class LayoutComponent implements OnInit{
 
   onLogout() {
     this.authService.logout().then(() => {
-      this.toastr.success('Đăng xuất thành công.','Thành công!');
+      this.toastr.success('Đăng xuất thành công.');
       this.router.navigate(['/admin/login']);
 
     }).catch((error) => {

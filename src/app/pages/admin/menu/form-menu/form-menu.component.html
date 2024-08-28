@@ -1,0 +1,84 @@
+<app-breadcrumb [title]="breadcrumbTitle" />
+<div class="p-2 w-full">
+  <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[1fr,3fr] gap-x-4">
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold text-red-600 ">Lưu ý</p>
+      </div>
+      <div class="card-body">
+        <ul class="ml-12 list-decimal text-justify space-y-3 text-red-500 italic font-normal">
+          <li>Khi khởi tạo menu bạn phải chắc chắn rằng đường dẫn của menu có hoạt động. Đường dẫn trên website được
+            khởi tạo tại các module: Bài viết, Sản phẩm, Dự án..v.v..</li>
+          <li>Tiêu đề và đường dẫn của menu không được để trống.</li>
+          <li>Hệ thống chỉ hỗ trợ tối đa 5 cấp menu.</li>
+          <li>Đọc bài viết này để biết cách lấy Icon <a href="" class="text-teal-500">[Bấm vào đây]</a>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">Cấu hình Menu</p>
+        <button (click)="addItem()"
+          class="h-[2rem] outline  !outline-2 !outline-teal-500 bg-white  !rounded-none text-teal-700 !ring-0 active:bg-teal-700 active:text-white px-4">Thêm
+          đường dẫn
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="flex items-center font-semibold">
+          <div class="w-3/12"><label for="">Tên Menu</label></div>
+          <div class="w-5/12"><label for="">Đường dẫn</label></div>
+          <div class="w-2/12"><label for="">Icon</label></div>
+          <div class="w-1/12 text-center"><label for="">Vị trí</label></div>
+          <div class="w-1/12 text-center"><label for="">Xóa</label></div>
+        </div>
+        <hr class="border border-spacing-2 border-teal-700 mt-2">
+        <div class="text-center mt-2" *ngIf="menuItems.length === 0">
+          <h5>Danh sách kiên kết này chưa có bất kỳ đường dẫn nào.</h5>
+          <p>Hãy nhấn vào <span class="text-teal-400">"Thêm đường dẫn"</span> để bắt đầu thêm. </p>
+        </div>
+
+        <form [formGroup]="menuForm">
+          <div formArrayName="items">
+            <div *ngFor="let item of menuItems.controls; let i = index" [formGroupName]="i"
+              class="mt-3 flex items-center">
+              <div class="w-3/12 pr-1">
+                <input type="text" class="form-control form-control-sm" formControlName="title">
+                <div *ngIf="item.get('title')?.invalid && (item.get('title')?.dirty || item.get('title')?.touched)"
+                  class="text-red-500 text-xs mt-1">
+                  <div *ngIf="item.get('title')?.errors?.['required']">Tên menu là bắt buộc</div>
+                  <div *ngIf="item.get('title')?.errors?.['minlength']">Tên menu phải có ít nhất 2 ký tự</div>
+                </div>
+              </div>
+              <div class="w-5/12 pr-1">
+                <input type="text" class="form-control form-control-sm" formControlName="url">
+                <div *ngIf="item.get('url')?.invalid && (item.get('url')?.dirty || item.get('url')?.touched)"
+                  class="text-red-500 text-xs mt-1">
+                  <div *ngIf="item.get('url')?.errors?.['required']">URL là bắt buộc</div>
+                  <div *ngIf="item.get('url')?.errors?.['pattern']">URL không hợp lệ</div>
+                </div>
+              </div>
+              <div class="w-2/12 pr-1">
+                <input type="text" class="form-control form-control-sm" formControlName="icon">
+              </div>
+              <div class="w-1/12 text-center">
+                <input type="number" class="form-control form-control-sm" formControlName="order">
+              </div>
+              <div class="w-1/12 text-center">
+                <a class="btn btn-danger me-1 rounded-xl" (click)="deleteItem(i)">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="fixed bottom-2 right-4">
+            <button type="submit" (click)="saveMenuItems()" class="btn btn-success">Lưu lại</button>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

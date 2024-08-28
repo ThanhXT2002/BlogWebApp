@@ -44,6 +44,8 @@
 
             ],
             "scripts": [
+               "node_modules/jquery/dist/jquery.min.js",
+                "node_modules/nestable/jquery.nestable.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,
