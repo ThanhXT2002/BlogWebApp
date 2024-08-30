@@ -10,6 +10,9 @@
 //   measurementId: "G-HZXFH8M1R9"
 // };
 
+import { environment } from "../../../environment";
+
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBz7kQrQhi-sHVouPhpcyfNy0f7_SuVExk",
   authDomain: "angularproject-4d1e3.firebaseapp.com",
@@ -23,7 +26,7 @@ export const firebaseConfig = {
 
 
 export const Constant = {
-  API_END_POINT: '/api/amazon/', // Sử dụng proxy URL
+  API_END_POINT: environment.apiUrl, // Sử dụng proxy URL
   METHODS: {
     //product
     GET_ALL_PRODUCT: 'GetAllProducts',
