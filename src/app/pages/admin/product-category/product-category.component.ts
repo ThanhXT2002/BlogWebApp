@@ -30,7 +30,7 @@ import { Select2Module  } from 'ng-select2-component';
   styleUrl: './product-category.component.scss'
 })
 export class ProductCategoryComponent implements OnInit{
-  breadcrumbTitle: string = "Quản Lý Danh Mục Loại Sản Phẩm";
+  breadcrumbTitle: string = "Quản Lý Danh Mục Loại Sản Phẩm Mới";
   categoryForm:FormGroup;
   categoryList: Select2Option[] = [];
   product$: Observable<any>| undefined;
