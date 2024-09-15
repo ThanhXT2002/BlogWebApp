@@ -32,6 +32,9 @@ import { BannerComponent } from './pages/admin/banner/banner.component';
 import { FormBannerComponent } from './pages/admin/banner/form-banner/form-banner.component';
 import { FormMenuComponent } from './pages/admin/menu/form-menu/form-menu.component';
 import { MenuItemComponent } from './pages/admin/menu/menu-item/menu-item.component';
+import { ProductIccComponent } from './pages/admin/product-icc/product-icc.component';
+import { FormProductIccComponent } from './pages/admin/product-icc/form-product-icc/form-product-icc.component';
+
 
 export const routes: Routes = [
   {
@@ -96,6 +99,18 @@ export const routes: Routes = [
       {
         path: 'form-post/:id',
         component: FormPostComponent,
+      },
+      {
+        path: 'product-icc',
+        component: ProductIccComponent,
+      },
+      {
+        path: 'form-product-icc',
+        component: FormProductIccComponent,
+      },
+      {
+        path: 'form-product-icc/:id',
+        component: FormProductIccComponent,
       },
       {
         path: 'product',

@@ -65,6 +65,11 @@ export class SidebarComponent {
       ]
     },
     {
+      icon:'dns',
+      label: "QL Sản Phẩm Icc",
+      route: 'product-icc'
+    },
+    {
       icon:'filter_b_and_w',
       label: "QL Bài Viết",
       subItems: [

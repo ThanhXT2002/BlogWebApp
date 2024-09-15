@@ -1,0 +1,91 @@
+<app-breadcrumb [title]="breadcrumbTitle"></app-breadcrumb>
+<form action="" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="p-2 w-full grid grid-cols-1 lg:grid-cols-[3fr,1fr] gap-x-4">
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">
+          THÔNG TIN CHUNG
+        </p>
+      </div>
+      <div class="card-body">
+        <div class="mb-5">
+          <label for="title" class="mb-2">Tiêu đề <span class="text-red-500 italic">(*)</span></label>
+          <input type="text" name="title" class="form-control" formControlName="title">
+          <span class="text-red-600 italic text-sm"
+            *ngIf="productForm.get('title')?.hasError('required') && productForm.get('title')?.touched">
+            Tiêu đề không được bỏ trống!
+          </span>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Tiêu đề ngắn <span class="text-red-500 italic">(*)</span></label>
+          <input type="text" name="shortTiltle" class="form-control" formControlName="shortTiltle">
+          <span class="text-red-600 italic text-sm"
+            *ngIf="productForm.get('shortTiltle')?.hasError('required') && productForm.get('shortTiltle')?.touched">
+            Tiêu đề không được bỏ trống!
+          </span>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Mô tả <span class="text-red-500 italic">(*)</span></label>
+          <angular-editor name="description" [placeholder]="'Enter text here...'" [config]="editorConfigDescription"
+             formControlName="description"></angular-editor>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Phạm vi bảo hiểm<span class="text-red-500 italic">(*)</span></label>
+          <angular-editor name="coverage" [placeholder]="'Enter text here...'" [config]="editorConfigCoverage"
+            formControlName="coverage"></angular-editor>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Quyền lợi bảo hiểm <span class="text-red-500 italic">(*)</span></label>
+          <angular-editor name="interest" [placeholder]="'Enter text here...'" [config]="editorConfigInterest"
+           formControlName="interest"></angular-editor>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Video<span class="text-red-500 italic">(*)</span></label>
+          <div class="border rounded-none border-gray-300 h-96">
+            <app-video-upload [videoUrl]="productForm.get('video')?.value" (videoUrlChange)="onVideoUrlChange('video',$event)">
+            </app-video-upload>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="mb-3 card">
+      <div class="card-header flex justify-between align-items-center items-center px-4">
+        <p class="font-semibold">
+          CẤU HÌNH CHUNG
+        </p>
+      </div>
+      <div class="card-body">
+        <div class="mb-5">
+          <label for="title" class="pb-2">Trạng thái</label>
+          <select name="" id="" class="form-control" formControlName="publish">
+            <option [ngValue]="true">Xuất bản</option>
+            <option [ngValue]="false">Ngưng xuất bản</option>
+          </select>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-4">Ảnh nền<span class="text-red-500 italic">(*)</span></label>
+          <div class="border rounded-none border-gray-300 w-full">
+            <app-image-upload [imageUrl]="productForm.get('image')?.value"
+            (imageUrlChange)="onImageUrlChange('image', $event)">
+          </app-image-upload>
+          </div>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-4">Icon<span class="text-red-500 italic">(*)</span></label>
+          <div class="border rounded-none border-gray-300 w-full">
+            <app-image-upload  [imageUrl]="productForm.get('icon')?.value"
+            (imageUrlChange)="onImageUrlChange('icon', $event)">
+          </app-image-upload>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-2 right-5">
+    <button type="submit" class="btn btn-success">Lưu lại</button>
+  </div>
+</form>

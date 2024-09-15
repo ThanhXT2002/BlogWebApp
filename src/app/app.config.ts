@@ -59,7 +59,8 @@ export const appConfig: ApplicationConfig = {
           ]
         }
       })
-    ), provideAnimationsAsync(),
+    ),
+    provideAnimationsAsync(),
     {
       provide: IMAGE_CONFIG,
       useValue: {

@@ -19,7 +19,7 @@ import { finalize } from 'rxjs/operators';
       #fileInput
       (change)="onFileSelected($event)"
       style="display: none"
-      accept="image/*"
+      accept="/*"
     />
   `,
   styleUrl: './input-upload.component.scss'
