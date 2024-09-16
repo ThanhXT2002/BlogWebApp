@@ -4,8 +4,9 @@ export interface IProductIcc{
   shortTiltle: string;
   slug: string;
   icon:string;
+  icon2:string;
   image: string | null;
-  video:string;
+  gif:string;
   coverage: string;
   interest:String;
   description: string | null;

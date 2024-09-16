@@ -28,6 +28,12 @@ import { CommonModule } from '@angular/common';
       class="hidden"
       accept="image/*"
     />
+    <div *ngIf="uploadProgress > 0 && uploadProgress < 100" class="mt-2">
+      <div class="bg-blue-200 rounded-full h-2.5 dark:bg-blue-700 w-full">
+        <div class="bg-blue-600 h-2.5 rounded-full" [style.width.%]="uploadProgress"></div>
+      </div>
+      <p class="text-sm text-gray-600 mt-1">Uploading: {{ uploadProgress }}%</p>
+    </div>
   `
 })
 export class ImageUploadComponent {
@@ -36,6 +42,7 @@ export class ImageUploadComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   placeholderImage: string = 'assets/default.png'; // Thay bằng đường dẫn đến ảnh mặc định của bạn
+  uploadProgress: number = 0;
 
   constructor(private storage: AngularFireStorage) {}
 
@@ -52,11 +59,17 @@ export class ImageUploadComponent {
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
+    // Observe upload progress
+    task.percentageChanges().subscribe(progress => {
+      this.uploadProgress = Math.round(progress || 0);
+    });
+
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(url => {
           this.imageUrl = url;
           this.imageUrlChange.emit(url);
+          this.uploadProgress = 0; // Reset progress after upload
         });
       })
     ).subscribe();

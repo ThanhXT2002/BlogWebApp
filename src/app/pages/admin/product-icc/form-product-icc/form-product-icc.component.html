@@ -39,15 +39,6 @@
           <angular-editor name="interest" [placeholder]="'Enter text here...'" [config]="editorConfigInterest"
            formControlName="interest"></angular-editor>
         </div>
-        <div class="mb-5">
-          <label for="title" class="mb-2">Video<span class="text-red-500 italic">(*)</span></label>
-          <div class="border rounded-none border-gray-300 h-96">
-            <app-video-upload [videoUrl]="productForm.get('video')?.value" (videoUrlChange)="onVideoUrlChange('video',$event)">
-            </app-video-upload>
-          </div>
-
-        </div>
-
       </div>
     </div>
     <div class="mb-3 card">
@@ -73,13 +64,24 @@
           </div>
         </div>
         <div class="mb-5">
-          <label for="title" class="mb-4">Icon<span class="text-red-500 italic">(*)</span></label>
-          <div class="border rounded-none border-gray-300 w-full">
+          <label for="title" class="mb-4">Icon<span class="text-red-500 italic text-xs">(*)Vui lòng chọn 2 Icon trước và sau</span></label>
+          <div class="border rounded-none border-gray-300 w-full flex justify-between">
             <app-image-upload  [imageUrl]="productForm.get('icon')?.value"
             (imageUrlChange)="onImageUrlChange('icon', $event)">
           </app-image-upload>
+            <app-image-upload  [imageUrl]="productForm.get('icon2')?.value"
+            (imageUrlChange)="onImageUrlChange('icon2', $event)">
+          </app-image-upload>
           </div>
 
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-4">Ảnh gif<span class="text-red-500 italic">(*)</span></label>
+          <div class="border rounded-none border-gray-300 w-full">
+            <app-image-upload [imageUrl]="productForm.get('gif')?.value"
+            (imageUrlChange)="onImageUrlChange('gif', $event)">
+          </app-image-upload>
+          </div>
         </div>
 
       </div>
