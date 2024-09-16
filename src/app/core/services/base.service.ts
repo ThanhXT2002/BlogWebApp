@@ -4,10 +4,10 @@ import { mergeMap, toArray } from 'rxjs/operators';
 import slugify from 'slugify';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BaseService {
-  constructor() { }
+  constructor() {}
 
   // Phương thức để chuyển một ảnh thành base64
   convertToBase64(file: File): Observable<string> {
@@ -40,7 +40,7 @@ export class BaseService {
   // Phương thức để upload nhiều ảnh
   uploadAlbum(files: File[]): Observable<string[]> {
     return from(files).pipe(
-      mergeMap(file => this.convertToBase64(file)),
+      mergeMap((file) => this.convertToBase64(file)),
       toArray()
     );
   }
@@ -50,7 +50,7 @@ export class BaseService {
     return slugify(title, {
       lower: true,
       strict: true,
-      locale: 'vi'
+      locale: 'vi',
     });
   }
 }
