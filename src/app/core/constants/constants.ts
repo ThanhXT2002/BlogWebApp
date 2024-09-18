@@ -10,7 +10,7 @@
 //   measurementId: "G-HZXFH8M1R9"
 // };
 
-import { environment } from "../../../environment";
+import { environment } from "../../../environments/environment.development";
 
 
 export const firebaseConfig = {
