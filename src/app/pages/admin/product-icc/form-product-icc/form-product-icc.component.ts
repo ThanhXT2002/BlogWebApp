@@ -44,7 +44,8 @@ export class FormProductIccComponent {
   ) {
     this.productForm = this.fb.group({
       title: ['', Validators.required],
-      shortTiltle: ['', Validators.required],
+      shortTitle: ['', Validators.required],
+      shortTitleMobile: ['', Validators.required],
       icon: [''],
       icon2: [''],
       image: [''],
@@ -175,6 +176,7 @@ export class FormProductIccComponent {
   }
 
   editorConfigDescription: AngularEditorConfig = this.getDefaultEditorConfig('250px');
+  editorConfigShortTitleMobile: AngularEditorConfig = this.getDefaultEditorConfig('100px');
   editorConfigCoverage: AngularEditorConfig = this.getDefaultEditorConfig('250px');
   editorConfigInterest: AngularEditorConfig = this.getDefaultEditorConfig('250px');
 }

@@ -26,11 +26,8 @@
         </div>
         <div class="mb-5">
           <label for="title" class="mb-2">Tiêu đề ngắn mobile<span class="text-red-500 italic">(*)</span></label>
-          <input type="text" name="shortTitleMobile" class="form-control" formControlName="shortTitleMobile">
-          <span class="text-red-600 italic text-sm"
-            *ngIf="productForm.get('shortTitleMobile')?.hasError('required') && productForm.get('shortTitleMobile')?.touched">
-            Tiêu đề không được bỏ trống!
-          </span>
+          <angular-editor name="shortTitleMobile" [placeholder]="'Enter text here...'" [config]="editorConfigShortTitleMobile"
+             formControlName="shortTitleMobile"></angular-editor>
         </div>
         <div class="mb-5">
           <label for="title" class="mb-2">Mô tả <span class="text-red-500 italic">(*)</span></label>
