@@ -18,9 +18,17 @@
         </div>
         <div class="mb-5">
           <label for="title" class="mb-2">Tiêu đề ngắn <span class="text-red-500 italic">(*)</span></label>
-          <input type="text" name="shortTiltle" class="form-control" formControlName="shortTiltle">
+          <input type="text" name="shortTitle" class="form-control" formControlName="shortTitle">
           <span class="text-red-600 italic text-sm"
-            *ngIf="productForm.get('shortTiltle')?.hasError('required') && productForm.get('shortTiltle')?.touched">
+            *ngIf="productForm.get('shortTitle')?.hasError('required') && productForm.get('shortTitle')?.touched">
+            Tiêu đề không được bỏ trống!
+          </span>
+        </div>
+        <div class="mb-5">
+          <label for="title" class="mb-2">Tiêu đề ngắn mobile<span class="text-red-500 italic">(*)</span></label>
+          <input type="text" name="shortTitleMobile" class="form-control" formControlName="shortTitleMobile">
+          <span class="text-red-600 italic text-sm"
+            *ngIf="productForm.get('shortTitleMobile')?.hasError('required') && productForm.get('shortTitleMobile')?.touched">
             Tiêu đề không được bỏ trống!
           </span>
         </div>

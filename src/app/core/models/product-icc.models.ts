@@ -1,7 +1,8 @@
 export interface IProductIcc{
   key?: string;
   title: string;
-  shortTiltle: string;
+  shortTitle: string;
+  shortTitleMobile: string;
   slug: string;
   icon:string;
   icon2:string;
